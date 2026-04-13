@@ -104,21 +104,20 @@ async function sendBrevoEmail({ to, toName, subject, htmlContent }) {
 
 // ===== بيانات الأدوية الاحتياطية (fallback إذا Supabase مش شغال) =====
 const fallbackProducts = [
-    // ───────────── مسكنات وخافضات حرارة ─────────────
-    { id: 1, name: "بانادول إكسترا - 24 قرص", price: 45, stock: 120, image: "images/1.svg", category: "مسكنات" },
-    { id: 2, name: "بانادول أدفانس 500 ملجم - 24 قرص", price: 36, stock: 95, image: "images/2.svg", category: "مسكنات" },
-    { id: 3, name: "بنادول ساينس (للجيوب الأنفية)", price: 55, stock: 0, image: "images/3.svg", category: "مسكنات" },
-    { id: 4, name: "بروفين 600 ملجم - 20 قرص", price: 50, stock: 5, image: "images/4.svg", category: "مسكنات" },
-    { id: 5, name: "بروفين 400 ملجم - 20 قرص", price: 36, stock: 78, image: "images/5.svg", category: "مسكنات" },
-    { id: 6, name: "كتافلام 50 ملجم - 20 قرص", price: 45, stock: 60, image: "images/6.svg", category: "مسكنات" },
-    { id: 7, name: "كتافاست فوار 50 ملجم - 9 أكياس", price: 54, stock: 42, image: "images/7.svg", category: "مسكنات" },
-    { id: 8, name: "فولتارين 50 ملجم - 20 قرص", price: 48, stock: 33, image: "images/8.svg", category: "مسكنات" },
-    { id: 9, name: "أدول 500 ملجم - 24 قرص", price: 18, stock: 200, image: "images/9.svg", category: "مسكنات" },
-    { id: 10, name: "نوفالدول 1000 ملجم - 20 قرص", price: 22, stock: 150, image: "images/10.svg", category: "مسكنات" },
-    { id: 11, name: "أسبرين بروتكت 100 ملجم - 20 قرص", price: 30, stock: 110, image: "images/11.svg", category: "مسكنات" },
-    { id: 12, name: "ترامادول 50 ملجم (بروشتة فقط)", price: 25, stock: 0, image: "images/12.svg", category: "مسكنات" },
-    { id: 13, name: "كيتوفان 200 ملجم - 20 كبسولة", price: 42, stock: 55, image: "images/13.svg", category: "مسكنات" },
-    { id: 14, name: "ريفو 320 ملجم - 10 أقراص", price: 7, stock: 300, image: "images/14.svg", category: "مسكنات" },
+    { id: 1, name: "بانادول إكسترا - 24 قرص", price: 45, stock: 120, category: "مسكنات" },
+    { id: 2, name: "بانادول أدفانس 500 ملجم - 24 قرص", price: 36, stock: 95, category: "مسكنات" },
+    { id: 3, name: "بنادول ساينس (للجيوب الأنفية)", price: 55, stock: 0, category: "مسكنات" },
+    { id: 4, name: "بروفين 600 ملجم - 20 قرص", price: 50, stock: 5, category: "مسكنات" },
+    { id: 5, name: "بروفين 400 ملجم - 20 قرص", price: 36, stock: 78, category: "مسكنات" },
+    { id: 6, name: "كتافلام 50 ملجم - 20 قرص", price: 45, stock: 60, category: "مسكنات" },
+    { id: 7, name: "كتافاست فوار 50 ملجم - 9 أكياس", price: 54, stock: 42, category: "مسكنات" },
+    { id: 8, name: "فولتارين 50 ملجم - 20 قرص", price: 48, stock: 33, category: "مسكنات" },
+    { id: 9, name: "أدول 500 ملجم - 24 قرص", price: 18, stock: 200, category: "مسكنات" },
+    { id: 10, name: "نوفالدول 1000 ملجم - 20 قرص", price: 22, stock: 150, category: "مسكنات" },
+    { id: 11, name: "أسبرين بروتكت 100 ملجم - 20 قرص", price: 30, stock: 110, category: "مسكنات" },
+    { id: 12, name: "ترامادول 50 ملجم (بروشتة فقط)", price: 25, stock: 0, category: "مسكنات" },
+    { id: 13, name: "كيتوفان 200 ملجم - 20 كبسولة", price: 42, stock: 55, category: "مسكنات" },
+    { id: 14, name: "ريفو 320 ملجم - 10 أقراص", price: 7, stock: 300, category: "مسكنات" },
 ];
 
 // ===== SVG أيقونة الدواء (بدل الصور الخارجية) =====
@@ -168,7 +167,6 @@ async function loadProductsFromSupabase() {
                 name: p.name,
                 price: Number(p.price),
                 stock: p.stock,
-                image: p.image_url || `images/${p.id}.svg`,
                 category: p.category,
                 available: p.available
             }));
@@ -231,7 +229,7 @@ function renderProducts(items) {
         card.className = 'product-card';
         card.innerHTML = `
             <div class="product-image-placeholder">
-                ${product.image ? `<img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.style.display='none';this.parentElement.innerHTML='${pillSVG().replace(/'/g, "\\'")}'">`  : pillSVG()}
+                ${pillSVG()}
             </div>
             <div class="product-info">
                 <h3 class="product-name">${product.name}</h3>
@@ -297,16 +295,9 @@ window.openReservationModal = function (productId) {
     document.getElementById('modalProductStock').textContent = 'المخزون: ' + product.stock + ' قطعة';
     document.getElementById('hiddenProductId').value = product.id;
 
-    // أيقونة بدل الصورة
-    const imgEl = document.getElementById('modalProductImage');
-    if (product.image) {
-        imgEl.style.display = 'block';
-        imgEl.src = product.image;
-        document.getElementById('modalProductIcon').style.display = 'none';
-    } else {
-        imgEl.style.display = 'none';
-        document.getElementById('modalProductIcon').style.display = 'flex';
-    }
+    // Always show SVG icon placeholder
+    document.getElementById('modalProductImage').style.display = 'none';
+    document.getElementById('modalProductIcon').style.display = 'flex';
 
     reservationForm.style.display = 'block';
     successMessage.classList.add('hidden');
