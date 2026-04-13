@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صيدلية الشفاء - حجز الأدوية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <h1>صيدلية <span>الشفاء</span></h1>
+                <div id="connectionStatus" class="connection-status">
+                    <span class="status-dot loading"></span>
+                    <span class="status-text">جاري الاتصال...</span>
+                </div>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="ابحث عن اسم الدواء...">
+                <button id="searchBtn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="products-section">
+            <h2 class="section-title">الأدوية المتاحة <span class="product-count">(300 دواء)</span></h2>
+            <div id="filtersContainer" class="filters-container">
+                <!-- Category filter buttons injected by JS -->
+            </div>
+            <div id="productsGrid" class="products-grid">
+                <!-- Products injected by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Reservation Modal -->
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle">حجز الدواء</h3>
+
+            <div class="selected-product-info">
+                <div id="modalProductIcon" class="modal-icon">
+                    <svg viewBox="0 0 64 64" width="48" height="48" fill="none">
+                        <rect x="8" y="20" width="48" height="24" rx="12" stroke="#0284c7" stroke-width="2" />
+                        <line x1="32" y1="20" x2="32" y2="44" stroke="#0284c7" stroke-width="2"
+                            stroke-dasharray="3 2" />
+                        <rect x="8" y="20" width="24" height="24" rx="12" fill="#0284c7" opacity="0.15" />
+                    </svg>
+                </div>
+                <img id="modalProductImage" src="" alt="Product" style="display:none;">
+                <div>
+                    <h4 id="modalProductName">اسم الدواء</h4>
+                    <p class="price" id="modalProductPrice">0 جنيه</p>
+                    <p class="stock-info" id="modalProductStock">المخزون: 0</p>
+                </div>
+            </div>
+
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label for="customerName">الاسم بالكامل</label>
+                    <input type="text" id="customerName" required placeholder="أدخل اسمك">
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">رقم التليفون</label>
+                    <input type="tel" id="customerPhone" required placeholder="مثال: 01000000000">
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">البريد الإلكتروني <span style="font-size:0.8rem;color:var(--text-muted);">(اختياري - لإرسال تأكيد الحجز)</span></label>
+                    <input type="email" id="customerEmail" placeholder="example@mail.com">
+                </div>
+                <input type="hidden" id="hiddenProductId">
+                <button type="submit" class="btn btn-primary btn-block">تأكيد الحجز</button>
+            </form>
+
+            <div id="successMessage" class="success-message hidden">
+                <svg viewBox="0 0 24 24" width="48" height="48" stroke="#10b981" stroke-width="2" fill="none">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h4>تم الحجز بنجاح!</h4>
+                <p>رقم الحجز الخاص بك هو: <strong id="reservationId"></strong></p>
+                <p>برجاء التوجه للصيدلية لاستلام الدواء خلال 24 ساعة.</p>
+                <button type="button" class="btn btn-outline" id="closeSuccessBtn">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>جميع الحقوق محفوظة &copy; صيدلية الشفاء 2026</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
