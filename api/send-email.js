@@ -1,4 +1,3 @@
-
 export default async function handler(req, res) {
     // Only allow POST
     if (req.method !== 'POST') {
@@ -33,7 +32,7 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 sender: {
                     name: 'صيدلية الشفاء',
-                    email: 'restaurant22nassar@gmail.com'
+                    email: 'phoeyo4324@gmail.com'
                 },
                 to: [{ email: to, name: toName || '' }],
                 subject: subject,
