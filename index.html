@@ -277,6 +277,41 @@
             50% { opacity: 0.4; transform: scale(0.8); }
         }
 
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: var(--bg-glass);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 50px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--primary);
+        }
+
+        .lang-option {
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+        }
+
+        .lang-option.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
         /* ========================================
            HERO SECTION
         ======================================== */
@@ -1542,13 +1577,17 @@
             </div>
         </a>
         <ul class="nav-center" id="navLinks">
-            <li><a href="#products">الأدوية</a></li>
-            <li><a href="#hero">الرئيسية</a></li>
+            <li><a href="#products" data-ar="الأدوية" data-en="Medicines">الأدوية</a></li>
+            <li><a href="#hero" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
         </ul>
         <div class="nav-actions">
             <div class="connection-indicator" id="connectionStatus">
                 <span class="dot loading"></span>
                 <span class="status-text">جاري الاتصال...</span>
+            </div>
+            <div class="lang-toggle" id="langToggle">
+                <button class="lang-option active" data-lang="ar" onclick="setLanguage('ar')">ع</button>
+                <button class="lang-option" data-lang="en" onclick="setLanguage('en')">EN</button>
             </div>
             <button class="nav-cart-btn" id="openCartBtn" onclick="toggleCart()">
                 <i class="fas fa-shopping-cart"></i>
@@ -1572,12 +1611,12 @@
             <span>🏥</span>
         </div>
         <div class="hero-content">
-            <div class="hero-badge">✨ أهلاً وسهلاً</div>
-            <h2>احجز <em>أدويتك</em> بسهولة</h2>
-            <p>صيدلية الشفاء تقدم لك خدمة حجز الأدوية أونلاين. اختر أدويتك واستلمها من أقرب فرع خلال 24 ساعة</p>
+            <div class="hero-badge" data-ar="✨ أهلاً وسهلاً" data-en="✨ Welcome">✨ أهلاً وسهلاً</div>
+            <h2 data-ar="احجز <em>أدويتك</em> بسهولة" data-en="Reserve Your <em>Medicine</em> Easily" data-html="true">احجز <em>أدويتك</em> بسهولة</h2>
+            <p data-ar="صيدلية الشفاء تقدم لك خدمة حجز الأدوية أونلاين. اختر أدويتك واستلمها من أقرب فرع خلال 24 ساعة" data-en="Al-Shefaa Pharmacy offers online medicine reservation. Choose your medicines and pick them up from the nearest branch within 24 hours">صيدلية الشفاء تقدم لك خدمة حجز الأدوية أونلاين. اختر أدويتك واستلمها من أقرب فرع خلال 24 ساعة</p>
             <a href="#products" class="hero-cta">
                 <i class="fas fa-pills"></i>
-                <span>تصفح الأدوية</span>
+                <span data-ar="تصفح الأدوية" data-en="Browse Medicines">تصفح الأدوية</span>
             </a>
         </div>
     </section>
@@ -1585,9 +1624,9 @@
     <!-- PRODUCTS SECTION -->
     <section class="section" id="products">
         <div class="section-header">
-            <h2>الأدوية <em>المتاحة</em></h2>
+            <h2 data-ar="الأدوية <em>المتاحة</em>" data-en="Available <em>Medicines</em>" data-html="true">الأدوية <em>المتاحة</em></h2>
             <div class="section-divider"></div>
-            <p>اختر من تشكيلتنا الواسعة واحجز أدويتك بضغطة زر</p>
+            <p data-ar="اختر من تشكيلتنا الواسعة واحجز أدويتك بضغطة زر" data-en="Choose from our wide selection and reserve your medicines with a click">اختر من تشكيلتنا الواسعة واحجز أدويتك بضغطة زر</p>
             <div class="product-count-label" id="productCountLabel">جاري التحميل...</div>
         </div>
 
@@ -1620,35 +1659,35 @@
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        <div class="footer-brand">💊 صيدلية الشفاء</div>
+        <div class="footer-brand">💊 <span data-ar="صيدلية الشفاء" data-en="Al-Shefaa Pharmacy">صيدلية الشفاء</span></div>
         <div class="footer-socials">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
-        <div class="footer-text">© 2026 صيدلية الشفاء. جميع الحقوق محفوظة</div>
+        <div class="footer-text" data-ar="© 2026 صيدلية الشفاء. جميع الحقوق محفوظة" data-en="© 2026 Al-Shefaa Pharmacy. All Rights Reserved">© 2026 صيدلية الشفاء. جميع الحقوق محفوظة</div>
     </footer>
 
     <!-- CART SIDEBAR -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h3><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
+            <h3><i class="fas fa-shopping-cart"></i> <span data-ar="سلة المشتريات" data-en="Shopping Cart">سلة المشتريات</span></h3>
             <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
         </div>
         <div class="cart-items" id="cartItems">
             <div class="cart-empty">
                 <i class="fas fa-shopping-cart"></i>
-                <p>السلة فارغة</p>
+                <p data-ar="السلة فارغة" data-en="Cart is empty">السلة فارغة</p>
             </div>
         </div>
         <div class="cart-footer hidden" id="cartFooter">
             <div class="cart-total-row">
-                <span class="cart-total-label">الإجمالي</span>
+                <span class="cart-total-label" data-ar="الإجمالي" data-en="Total">الإجمالي</span>
                 <span class="cart-total-value" id="cartTotal">0 جنيه</span>
             </div>
             <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>
-                <i class="fas fa-check-circle"></i> إتمام الحجز
+                <i class="fas fa-check-circle"></i> <span data-ar="إتمام الحجز" data-en="Checkout">إتمام الحجز</span>
             </button>
         </div>
     </div>
@@ -1657,7 +1696,7 @@
     <div class="modal-overlay" id="checkoutModal">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-clipboard-list"></i> إتمام الحجز</h3>
+                <h3><i class="fas fa-clipboard-list"></i> <span data-ar="إتمام الحجز" data-en="Checkout">إتمام الحجز</span></h3>
                 <button class="modal-close" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body" id="checkoutFormContainer">
@@ -1667,25 +1706,25 @@
 
                 <form id="checkoutForm">
                     <div class="form-group">
-                        <label for="customerName">الاسم بالكامل *</label>
-                        <input type="text" class="form-input" id="customerName" required placeholder="أدخل اسمك الكريم">
+                        <label for="customerName" data-ar="الاسم بالكامل *" data-en="Full Name *">الاسم بالكامل *</label>
+                        <input type="text" class="form-input" id="customerName" required data-placeholder-ar="أدخل اسمك الكريم" data-placeholder-en="Enter your name" placeholder="أدخل اسمك الكريم">
                     </div>
                     <div class="form-group">
-                        <label for="customerPhone">رقم التليفون *</label>
-                        <input type="tel" class="form-input" id="customerPhone" required placeholder="مثال: 01000000000">
+                        <label for="customerPhone" data-ar="رقم التليفون *" data-en="Phone Number *">رقم التليفون *</label>
+                        <input type="tel" class="form-input" id="customerPhone" required data-placeholder-ar="مثال: 01000000000" data-placeholder-en="e.g. 01000000000" placeholder="مثال: 01000000000">
                     </div>
                     <div class="form-group">
-                        <label for="customerEmail">البريد الإلكتروني <span style="font-size:0.75rem;color:var(--text-muted);">(اختياري - لإرسال تأكيد الحجز)</span></label>
+                        <label for="customerEmail" data-ar="البريد الإلكتروني (اختياري)" data-en="Email (optional)">البريد الإلكتروني <span style="font-size:0.75rem;color:var(--text-muted);">(اختياري - لإرسال تأكيد الحجز)</span></label>
                         <input type="email" class="form-input" id="customerEmail" placeholder="example@mail.com">
                     </div>
 
                     <div class="checkout-total-row">
-                        <span>إجمالي الطلب:</span>
+                        <span data-ar="إجمالي الطلب:" data-en="Order Total:">إجمالي الطلب:</span>
                         <strong id="checkoutTotal">0 جنيه</strong>
                     </div>
 
                     <button type="submit" class="submit-order-btn" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> تأكيد الحجز
+                        <i class="fas fa-paper-plane"></i> <span data-ar="تأكيد الحجز" data-en="Confirm Reservation">تأكيد الحجز</span>
                     </button>
                 </form>
             </div>
@@ -1693,11 +1732,11 @@
             <!-- Success State -->
             <div class="success-state" id="successState">
                 <div class="success-icon"><i class="fas fa-check"></i></div>
-                <h4>تم الحجز بنجاح! 🎉</h4>
-                <p>رقم الحجز الخاص بك هو:</p>
+                <h4 data-ar="تم الحجز بنجاح! 🎉" data-en="Reservation Confirmed! 🎉">تم الحجز بنجاح! 🎉</h4>
+                <p data-ar="رقم الحجز الخاص بك هو:" data-en="Your reservation number is:">رقم الحجز الخاص بك هو:</p>
                 <div class="res-number" id="reservationId"></div>
-                <p style="margin-top:1rem;">برجاء التوجه للصيدلية لاستلام الأدوية خلال 24 ساعة.</p>
-                <button class="close-success-btn" onclick="closeCheckout()">إغلاق</button>
+                <p style="margin-top:1rem;" data-ar="برجاء التوجه للصيدلية لاستلام الأدوية خلال 24 ساعة." data-en="Please visit the pharmacy to collect your medicines within 24 hours.">برجاء التوجه للصيدلية لاستلام الأدوية خلال 24 ساعة.</p>
+                <button class="close-success-btn" onclick="closeCheckout()" data-ar="إغلاق" data-en="Close">إغلاق</button>
             </div>
         </div>
     </div>
@@ -1809,22 +1848,318 @@
             }
         }
 
-        // ===== Fallback Products =====
+        // ===== Fallback Products (300 medicines) =====
         const fallbackProducts = [
-            { id: 1, name: "بانادول إكسترا - 24 قرص", price: 45, stock: 120, category: "مسكنات" },
-            { id: 2, name: "بانادول أدفانس 500 ملجم - 24 قرص", price: 36, stock: 95, category: "مسكنات" },
-            { id: 3, name: "بنادول ساينس (للجيوب الأنفية)", price: 55, stock: 0, category: "مسكنات" },
-            { id: 4, name: "بروفين 600 ملجم - 20 قرص", price: 50, stock: 5, category: "مسكنات" },
-            { id: 5, name: "بروفين 400 ملجم - 20 قرص", price: 36, stock: 78, category: "مسكنات" },
-            { id: 6, name: "كتافلام 50 ملجم - 20 قرص", price: 45, stock: 60, category: "مسكنات" },
-            { id: 7, name: "كتافاست فوار 50 ملجم - 9 أكياس", price: 54, stock: 42, category: "مسكنات" },
-            { id: 8, name: "فولتارين 50 ملجم - 20 قرص", price: 48, stock: 33, category: "مسكنات" },
-            { id: 9, name: "أدول 500 ملجم - 24 قرص", price: 18, stock: 200, category: "مسكنات" },
-            { id: 10, name: "نوفالدول 1000 ملجم - 20 قرص", price: 22, stock: 150, category: "مسكنات" },
-            { id: 11, name: "أسبرين بروتكت 100 ملجم - 20 قرص", price: 30, stock: 110, category: "مسكنات" },
-            { id: 12, name: "ترامادول 50 ملجم (بروشتة فقط)", price: 25, stock: 0, category: "مسكنات" },
-            { id: 13, name: "كيتوفان 200 ملجم - 20 كبسولة", price: 42, stock: 55, category: "مسكنات" },
-            { id: 14, name: "ريفو 320 ملجم - 10 أقراص", price: 7, stock: 300, category: "مسكنات" },
+            // مسكنات (Painkillers) — 30 items
+            {id:1,name:"بانادول إكسترا - 24 قرص",price:45,stock:120,category:"مسكنات"},
+            {id:2,name:"بانادول أدفانس 500 ملجم - 24 قرص",price:36,stock:95,category:"مسكنات"},
+            {id:3,name:"بنادول ساينس (للجيوب الأنفية)",price:55,stock:80,category:"مسكنات"},
+            {id:4,name:"بروفين 600 ملجم - 20 قرص",price:50,stock:5,category:"مسكنات"},
+            {id:5,name:"بروفين 400 ملجم - 20 قرص",price:36,stock:78,category:"مسكنات"},
+            {id:6,name:"كتافلام 50 ملجم - 20 قرص",price:45,stock:60,category:"مسكنات"},
+            {id:7,name:"كتافاست فوار 50 ملجم - 9 أكياس",price:54,stock:42,category:"مسكنات"},
+            {id:8,name:"فولتارين 50 ملجم - 20 قرص",price:48,stock:33,category:"مسكنات"},
+            {id:9,name:"أدول 500 ملجم - 24 قرص",price:18,stock:200,category:"مسكنات"},
+            {id:10,name:"نوفالدول 1000 ملجم - 20 قرص",price:22,stock:150,category:"مسكنات"},
+            {id:11,name:"أسبرين بروتكت 100 ملجم - 20 قرص",price:30,stock:110,category:"مسكنات"},
+            {id:12,name:"كيتوفان 200 ملجم - 20 كبسولة",price:42,stock:55,category:"مسكنات"},
+            {id:13,name:"ريفو 320 ملجم - 10 أقراص",price:7,stock:300,category:"مسكنات"},
+            {id:14,name:"أنالجين 500 ملجم - 20 قرص",price:12,stock:180,category:"مسكنات"},
+            {id:15,name:"بارامول 500 ملجم - 20 قرص",price:9,stock:250,category:"مسكنات"},
+            {id:16,name:"نابروكسين 500 ملجم - 20 قرص",price:38,stock:70,category:"مسكنات"},
+            {id:17,name:"ديكلاك 75 ملجم - 20 قرص",price:42,stock:65,category:"مسكنات"},
+            {id:18,name:"سيتال أقراص - 20 قرص",price:15,stock:200,category:"مسكنات"},
+            {id:19,name:"سيتال شراب للأطفال 120 مل",price:22,stock:90,category:"مسكنات"},
+            {id:20,name:"إندوسيد 25 ملجم - 20 كبسولة",price:35,stock:45,category:"مسكنات"},
+            {id:21,name:"تروفين 400 ملجم - 20 قرص",price:28,stock:85,category:"مسكنات"},
+            {id:22,name:"ميجافين فورت - 20 قرص",price:32,stock:60,category:"مسكنات"},
+            {id:23,name:"بيرال شراب 120 مل",price:18,stock:110,category:"مسكنات"},
+            {id:24,name:"نوفالجين أقراص - 10 أقراص",price:15,stock:200,category:"مسكنات"},
+            {id:25,name:"نوفالجين نقط 20 مل",price:18,stock:130,category:"مسكنات"},
+            {id:26,name:"كيتولاك 10 ملجم - 20 قرص",price:48,stock:40,category:"مسكنات"},
+            {id:27,name:"دولفين 50 ملجم - 20 قرص",price:35,stock:75,category:"مسكنات"},
+            {id:28,name:"أدفيل 200 ملجم - 24 كبسولة",price:55,stock:50,category:"مسكنات"},
+            {id:29,name:"موبيك 15 ملجم - 20 قرص",price:60,stock:40,category:"مسكنات"},
+            {id:30,name:"ديكلوفين 50 ملجم - 20 قرص",price:25,stock:90,category:"مسكنات"},
+            // مضادات حيوية (Antibiotics) — 30 items
+            {id:31,name:"أوجمنتين 1 جم - 14 قرص",price:120,stock:60,category:"مضادات حيوية"},
+            {id:32,name:"أوجمنتين 625 ملجم - 14 قرص",price:95,stock:80,category:"مضادات حيوية"},
+            {id:33,name:"أموكسيل 500 ملجم - 12 كبسولة",price:35,stock:120,category:"مضادات حيوية"},
+            {id:34,name:"كلافوكس 625 ملجم - 14 قرص",price:85,stock:70,category:"مضادات حيوية"},
+            {id:35,name:"فلوموكس 500 ملجم - 12 كبسولة",price:45,stock:95,category:"مضادات حيوية"},
+            {id:36,name:"فلوموكس شراب 250 ملجم - 60 مل",price:35,stock:75,category:"مضادات حيوية"},
+            {id:37,name:"زيثروماكس 500 ملجم - 3 أقراص",price:75,stock:55,category:"مضادات حيوية"},
+            {id:38,name:"كيورام 1 جم - 14 قرص",price:110,stock:50,category:"مضادات حيوية"},
+            {id:39,name:"سيفوتاكس 1 جم حقن - 1 فيال",price:30,stock:100,category:"مضادات حيوية"},
+            {id:40,name:"يوناسين 375 ملجم - 12 قرص",price:80,stock:65,category:"مضادات حيوية"},
+            {id:41,name:"سيبروفلوكساسين 500 ملجم - 10 أقراص",price:25,stock:130,category:"مضادات حيوية"},
+            {id:42,name:"سيبروباي 500 ملجم - 10 أقراص",price:70,stock:55,category:"مضادات حيوية"},
+            {id:43,name:"تافانيك 500 ملجم - 5 أقراص",price:90,stock:40,category:"مضادات حيوية"},
+            {id:44,name:"ليفوفلوكساسين 500 ملجم - 5 أقراص",price:45,stock:75,category:"مضادات حيوية"},
+            {id:45,name:"كلاريثرومايسين 500 ملجم - 14 قرص",price:55,stock:60,category:"مضادات حيوية"},
+            {id:46,name:"كلاسيد 500 ملجم - 14 قرص",price:120,stock:35,category:"مضادات حيوية"},
+            {id:47,name:"أزيثرومايسين 500 ملجم - 3 أقراص",price:35,stock:110,category:"مضادات حيوية"},
+            {id:48,name:"دوكسيسيكلين 100 ملجم - 10 كبسولة",price:18,stock:150,category:"مضادات حيوية"},
+            {id:49,name:"فيبراميسين 100 ملجم - 10 كبسولة",price:50,stock:45,category:"مضادات حيوية"},
+            {id:50,name:"ميترونيدازول 500 ملجم - 20 قرص",price:12,stock:180,category:"مضادات حيوية"},
+            {id:51,name:"فلاجيل 500 ملجم - 20 قرص",price:22,stock:140,category:"مضادات حيوية"},
+            {id:52,name:"سوبراكس 400 ملجم - 5 كبسولة",price:85,stock:50,category:"مضادات حيوية"},
+            {id:53,name:"سيفيكسيم 400 ملجم - 5 كبسولة",price:40,stock:80,category:"مضادات حيوية"},
+            {id:54,name:"أمبيسيلين 500 ملجم - 12 كبسولة",price:15,stock:160,category:"مضادات حيوية"},
+            {id:55,name:"نيتروفورانتوين 100 ملجم - 20 كبسولة",price:28,stock:70,category:"مضادات حيوية"},
+            {id:56,name:"يوفامين ريتارد - 20 كبسولة",price:55,stock:55,category:"مضادات حيوية"},
+            {id:57,name:"سيفترياكسون 1 جم حقن - 1 فيال",price:25,stock:90,category:"مضادات حيوية"},
+            {id:58,name:"لينكومايسين 500 ملجم - 12 كبسولة",price:30,stock:65,category:"مضادات حيوية"},
+            {id:59,name:"تتراسيكلين 250 ملجم - 20 كبسولة",price:10,stock:200,category:"مضادات حيوية"},
+            {id:60,name:"إريثرومايسين 500 ملجم - 12 قرص",price:35,stock:75,category:"مضادات حيوية"},
+            // فيتامينات (Vitamins) — 30 items
+            {id:61,name:"فيتامين سي 1000 ملجم - 30 قرص",price:60,stock:150,category:"فيتامينات"},
+            {id:62,name:"فيتامين د3 1000 وحدة - 30 كبسولة",price:45,stock:120,category:"فيتامينات"},
+            {id:63,name:"فيتامين د3 5000 وحدة - 30 كبسولة",price:75,stock:80,category:"فيتامينات"},
+            {id:64,name:"أوميجا 3 بلس - 30 كبسولة",price:55,stock:100,category:"فيتامينات"},
+            {id:65,name:"فيتامين ب المركب - 30 قرص",price:35,stock:130,category:"فيتامينات"},
+            {id:66,name:"زنك بلس 50 ملجم - 20 كبسولة",price:40,stock:110,category:"فيتامينات"},
+            {id:67,name:"حديد + فوليك أسيد - 30 قرص",price:30,stock:140,category:"فيتامينات"},
+            {id:68,name:"كالسيوم + فيتامين د - 30 قرص",price:45,stock:95,category:"فيتامينات"},
+            {id:69,name:"ماغنسيوم 400 ملجم - 30 قرص",price:50,stock:85,category:"فيتامينات"},
+            {id:70,name:"فيتاسيد سي 1 جم فوار - 10 أقراص",price:25,stock:200,category:"فيتامينات"},
+            {id:71,name:"سيفيتيل 500 ملجم فوار - 10 أقراص",price:22,stock:180,category:"فيتامينات"},
+            {id:72,name:"مالتي فيتامين يومي - 30 قرص",price:65,stock:90,category:"فيتامينات"},
+            {id:73,name:"سنتروم سيلفر +50 - 30 قرص",price:180,stock:50,category:"فيتامينات"},
+            {id:74,name:"سنتروم للرجال - 30 قرص",price:190,stock:45,category:"فيتامينات"},
+            {id:75,name:"سنتروم للسيدات - 30 قرص",price:190,stock:45,category:"فيتامينات"},
+            {id:76,name:"فيروجلوبين كبسولات - 30 كبسولة",price:85,stock:70,category:"فيتامينات"},
+            {id:77,name:"فيروجلوبين شراب 200 مل",price:95,stock:55,category:"فيتامينات"},
+            {id:78,name:"بيوتين 5000 ملجم - 30 كبسولة",price:120,stock:60,category:"فيتامينات"},
+            {id:79,name:"فيتامين هـ 400 ملجم - 30 كبسولة",price:55,stock:80,category:"فيتامينات"},
+            {id:80,name:"فيتامين أ 10000 وحدة - 30 كبسولة",price:40,stock:90,category:"فيتامينات"},
+            {id:81,name:"سيلينيوم 200 ملجم - 30 قرص",price:65,stock:60,category:"فيتامينات"},
+            {id:82,name:"كوكيو 10 - 30 كبسولة",price:110,stock:40,category:"فيتامينات"},
+            {id:83,name:"فيتامين ك2 - 30 قرص",price:80,stock:55,category:"فيتامينات"},
+            {id:84,name:"حمض الفوليك 5 ملجم - 30 قرص",price:12,stock:200,category:"فيتامينات"},
+            {id:85,name:"حمض الفوليك 500 ملجم - 30 قرص",price:8,stock:250,category:"فيتامينات"},
+            {id:86,name:"أوسوفورتين 10000 وحدة - 30 قرص",price:95,stock:65,category:"فيتامينات"},
+            {id:87,name:"أوسوفورتين 50000 وحدة - 10 أقراص",price:85,stock:45,category:"فيتامينات"},
+            {id:88,name:"ون ألفا 0.25 ملجم - 30 كبسولة",price:75,stock:50,category:"فيتامينات"},
+            {id:89,name:"توتال سي - 30 كبسولة",price:50,stock:75,category:"فيتامينات"},
+            {id:90,name:"إيفاكول أوميجا 3 - 30 كبسولة",price:65,stock:70,category:"فيتامينات"},
+            // أدوية ضغط (Blood Pressure) — 30 items
+            {id:91,name:"كونكور 5 ملجم - 30 قرص",price:85,stock:70,category:"أدوية ضغط"},
+            {id:92,name:"كونكور 2.5 ملجم - 30 قرص",price:65,stock:80,category:"أدوية ضغط"},
+            {id:93,name:"كونكور 10 ملجم - 30 قرص",price:110,stock:55,category:"أدوية ضغط"},
+            {id:94,name:"تينورمين 50 ملجم - 14 قرص",price:25,stock:120,category:"أدوية ضغط"},
+            {id:95,name:"تينورمين 100 ملجم - 14 قرص",price:35,stock:100,category:"أدوية ضغط"},
+            {id:96,name:"كابوتين 25 ملجم - 20 قرص",price:28,stock:130,category:"أدوية ضغط"},
+            {id:97,name:"كابوتين 50 ملجم - 20 قرص",price:38,stock:90,category:"أدوية ضغط"},
+            {id:98,name:"زيستريل 10 ملجم - 14 قرص",price:55,stock:75,category:"أدوية ضغط"},
+            {id:99,name:"زيستريل 20 ملجم - 14 قرص",price:70,stock:60,category:"أدوية ضغط"},
+            {id:100,name:"أملور 5 ملجم - 30 قرص",price:45,stock:100,category:"أدوية ضغط"},
+            {id:101,name:"أملور 10 ملجم - 30 قرص",price:65,stock:80,category:"أدوية ضغط"},
+            {id:102,name:"نورفاسك 5 ملجم - 30 قرص",price:120,stock:50,category:"أدوية ضغط"},
+            {id:103,name:"نورفاسك 10 ملجم - 30 قرص",price:150,stock:40,category:"أدوية ضغط"},
+            {id:104,name:"كوزار 50 ملجم - 14 قرص",price:85,stock:65,category:"أدوية ضغط"},
+            {id:105,name:"كوزار 100 ملجم - 14 قرص",price:120,stock:45,category:"أدوية ضغط"},
+            {id:106,name:"ديوفان 80 ملجم - 14 قرص",price:75,stock:70,category:"أدوية ضغط"},
+            {id:107,name:"ديوفان 160 ملجم - 14 قرص",price:95,stock:55,category:"أدوية ضغط"},
+            {id:108,name:"إكسفورج 5/160 ملجم - 14 قرص",price:130,stock:40,category:"أدوية ضغط"},
+            {id:109,name:"كاردورا 4 ملجم - 20 قرص",price:90,stock:50,category:"أدوية ضغط"},
+            {id:110,name:"إنالابريل 10 ملجم - 20 قرص",price:18,stock:150,category:"أدوية ضغط"},
+            {id:111,name:"إنالابريل 20 ملجم - 20 قرص",price:25,stock:120,category:"أدوية ضغط"},
+            {id:112,name:"أتينولول 50 ملجم - 20 قرص",price:12,stock:180,category:"أدوية ضغط"},
+            {id:113,name:"بروبرانولول 40 ملجم - 20 قرص",price:10,stock:200,category:"أدوية ضغط"},
+            {id:114,name:"لازيكس 40 ملجم - 12 قرص",price:18,stock:140,category:"أدوية ضغط"},
+            {id:115,name:"ألداكتون 25 ملجم - 20 قرص",price:22,stock:110,category:"أدوية ضغط"},
+            {id:116,name:"هيدروكلوروثيازيد 25 ملجم - 20 قرص",price:8,stock:200,category:"أدوية ضغط"},
+            {id:117,name:"إنداباميد 2.5 ملجم - 30 قرص",price:30,stock:90,category:"أدوية ضغط"},
+            {id:118,name:"ريمابريل 5 ملجم - 20 قرص",price:45,stock:70,category:"أدوية ضغط"},
+            {id:119,name:"تيلميسارتان 80 ملجم - 14 قرص",price:55,stock:60,category:"أدوية ضغط"},
+            {id:120,name:"كارفيديلول 6.25 ملجم - 20 قرص",price:28,stock:85,category:"أدوية ضغط"},
+            // أدوية سكر (Diabetes) — 30 items
+            {id:121,name:"جلوكوفاج 500 ملجم - 30 قرص",price:18,stock:200,category:"أدوية سكر"},
+            {id:122,name:"جلوكوفاج 850 ملجم - 30 قرص",price:25,stock:180,category:"أدوية سكر"},
+            {id:123,name:"جلوكوفاج 1000 ملجم - 30 قرص",price:32,stock:150,category:"أدوية سكر"},
+            {id:124,name:"جلوكوفاج XR 500 ملجم - 30 قرص",price:35,stock:120,category:"أدوية سكر"},
+            {id:125,name:"جلوكوفاج XR 1000 ملجم - 30 قرص",price:55,stock:90,category:"أدوية سكر"},
+            {id:126,name:"ديامايكرون MR 60 ملجم - 30 قرص",price:85,stock:70,category:"أدوية سكر"},
+            {id:127,name:"ديامايكرون MR 30 ملجم - 30 قرص",price:60,stock:80,category:"أدوية سكر"},
+            {id:128,name:"أماريل 1 ملجم - 30 قرص",price:45,stock:100,category:"أدوية سكر"},
+            {id:129,name:"أماريل 2 ملجم - 30 قرص",price:65,stock:85,category:"أدوية سكر"},
+            {id:130,name:"أماريل 3 ملجم - 30 قرص",price:80,stock:70,category:"أدوية سكر"},
+            {id:131,name:"أماريل 4 ملجم - 30 قرص",price:95,stock:60,category:"أدوية سكر"},
+            {id:132,name:"جانوفيا 100 ملجم - 14 قرص",price:250,stock:40,category:"أدوية سكر"},
+            {id:133,name:"جانوفيا 50 ملجم - 14 قرص",price:200,stock:45,category:"أدوية سكر"},
+            {id:134,name:"جانوميت 50/1000 ملجم - 14 قرص",price:280,stock:35,category:"أدوية سكر"},
+            {id:135,name:"جالفس 50 ملجم - 14 قرص",price:180,stock:50,category:"أدوية سكر"},
+            {id:136,name:"فورزيجا 10 ملجم - 14 قرص",price:300,stock:30,category:"أدوية سكر"},
+            {id:137,name:"جارديانس 10 ملجم - 14 قرص",price:280,stock:35,category:"أدوية سكر"},
+            {id:138,name:"جارديانس 25 ملجم - 14 قرص",price:320,stock:30,category:"أدوية سكر"},
+            {id:139,name:"أبيدرا أنسولين 100 وحدة/مل",price:180,stock:25,category:"أدوية سكر"},
+            {id:140,name:"لانتوس أنسولين 100 وحدة/مل",price:220,stock:20,category:"أدوية سكر"},
+            {id:141,name:"نوفوميكس 30 أنسولين",price:200,stock:25,category:"أدوية سكر"},
+            {id:142,name:"هيومالين N أنسولين",price:95,stock:30,category:"أدوية سكر"},
+            {id:143,name:"هيومالين R أنسولين",price:85,stock:35,category:"أدوية سكر"},
+            {id:144,name:"تريسيبا أنسولين",price:350,stock:15,category:"أدوية سكر"},
+            {id:145,name:"أوزمبك 0.25 ملجم حقن",price:1200,stock:10,category:"أدوية سكر"},
+            {id:146,name:"فيكتوزا 1.2 ملجم حقن",price:900,stock:12,category:"أدوية سكر"},
+            {id:147,name:"ميتفورمين 500 ملجم - 30 قرص",price:10,stock:250,category:"أدوية سكر"},
+            {id:148,name:"ميتفورمين 850 ملجم - 30 قرص",price:15,stock:200,category:"أدوية سكر"},
+            {id:149,name:"جليميبيريد 2 ملجم - 30 قرص",price:22,stock:130,category:"أدوية سكر"},
+            {id:150,name:"جليميبيريد 4 ملجم - 30 قرص",price:35,stock:100,category:"أدوية سكر"},
+            // أدوية معدة (Stomach) — 30 items
+            {id:151,name:"نكسيوم 40 ملجم - 14 كبسولة",price:95,stock:70,category:"أدوية معدة"},
+            {id:152,name:"نكسيوم 20 ملجم - 14 كبسولة",price:70,stock:85,category:"أدوية معدة"},
+            {id:153,name:"كونترولوك 40 ملجم - 14 قرص",price:80,stock:65,category:"أدوية معدة"},
+            {id:154,name:"كونترولوك 20 ملجم - 14 قرص",price:55,stock:80,category:"أدوية معدة"},
+            {id:155,name:"أوميبرازول 20 ملجم - 14 كبسولة",price:18,stock:200,category:"أدوية معدة"},
+            {id:156,name:"أوميبرازول 40 ملجم - 14 كبسولة",price:25,stock:150,category:"أدوية معدة"},
+            {id:157,name:"بانتوبرازول 40 ملجم - 14 قرص",price:22,stock:160,category:"أدوية معدة"},
+            {id:158,name:"فوسفالوجيل أكياس - 20 كيس",price:45,stock:110,category:"أدوية معدة"},
+            {id:159,name:"مالوكس بلس - 20 قرص مضغ",price:35,stock:120,category:"أدوية معدة"},
+            {id:160,name:"مالوكس شراب 200 مل",price:40,stock:80,category:"أدوية معدة"},
+            {id:161,name:"جافيسكون أدفانس شراب 200 مل",price:65,stock:70,category:"أدوية معدة"},
+            {id:162,name:"جافيسكون أقراص مضغ - 24 قرص",price:55,stock:75,category:"أدوية معدة"},
+            {id:163,name:"موتيليوم 10 ملجم - 30 قرص",price:42,stock:90,category:"أدوية معدة"},
+            {id:164,name:"موتيليوم شراب 200 مل",price:35,stock:65,category:"أدوية معدة"},
+            {id:165,name:"بريمبيران 10 ملجم - 20 قرص",price:15,stock:140,category:"أدوية معدة"},
+            {id:166,name:"دومبيريدون 10 ملجم - 30 قرص",price:12,stock:170,category:"أدوية معدة"},
+            {id:167,name:"بسكوبان 10 ملجم - 20 قرص",price:32,stock:100,category:"أدوية معدة"},
+            {id:168,name:"بسكوبان بلس - 20 قرص",price:45,stock:80,category:"أدوية معدة"},
+            {id:169,name:"كولونا أقراص - 30 قرص",price:55,stock:70,category:"أدوية معدة"},
+            {id:170,name:"دسفلاتيل أقراص - 30 قرص",price:28,stock:110,category:"أدوية معدة"},
+            {id:171,name:"سيميثيكون نقط 30 مل",price:18,stock:150,category:"أدوية معدة"},
+            {id:172,name:"دينتينوكس نقط 30 مل",price:25,stock:120,category:"أدوية معدة"},
+            {id:173,name:"أنتينال أقراص - 24 قرص",price:22,stock:160,category:"أدوية معدة"},
+            {id:174,name:"أنتينال شراب 60 مل",price:18,stock:130,category:"أدوية معدة"},
+            {id:175,name:"ستربتوكين أقراص - 10 أقراص",price:8,stock:250,category:"أدوية معدة"},
+            {id:176,name:"لوبيراميد 2 ملجم - 20 كبسولة",price:12,stock:140,category:"أدوية معدة"},
+            {id:177,name:"إيموديوم 2 ملجم - 10 أقراص",price:25,stock:100,category:"أدوية معدة"},
+            {id:178,name:"راني 150 ملجم - 20 قرص",price:15,stock:180,category:"أدوية معدة"},
+            {id:179,name:"رانيتيدين 150 ملجم - 20 قرص",price:8,stock:200,category:"أدوية معدة"},
+            {id:180,name:"فاموتيدين 40 ملجم - 20 قرص",price:12,stock:160,category:"أدوية معدة"},
+            // أدوية برد (Cold & Flu) — 30 items
+            {id:181,name:"كومتركس أقراص - 20 قرص",price:35,stock:130,category:"أدوية برد"},
+            {id:182,name:"كونجستال أقراص - 20 قرص",price:25,stock:180,category:"أدوية برد"},
+            {id:183,name:"فلو ريست أقراص - 20 قرص",price:22,stock:160,category:"أدوية برد"},
+            {id:184,name:"123 فلو أقراص - 20 قرص",price:18,stock:200,category:"أدوية برد"},
+            {id:185,name:"باور كابس كبسولات - 10 كبسولة",price:15,stock:250,category:"أدوية برد"},
+            {id:186,name:"سي ريتارد 500 ملجم - 10 كبسولة",price:12,stock:200,category:"أدوية برد"},
+            {id:187,name:"أوتريفين نقط أنف 15 مل",price:18,stock:150,category:"أدوية برد"},
+            {id:188,name:"أوتريفين سبراي أنف 15 مل",price:25,stock:120,category:"أدوية برد"},
+            {id:189,name:"نازيفين نقط أنف للأطفال 10 مل",price:15,stock:130,category:"أدوية برد"},
+            {id:190,name:"فينتولين بخاخ 100 ملجم",price:45,stock:80,category:"أدوية برد"},
+            {id:191,name:"فينتولين محلول استنشاق",price:35,stock:70,category:"أدوية برد"},
+            {id:192,name:"بلميكورت بخاخ",price:120,stock:40,category:"أدوية برد"},
+            {id:193,name:"بروسبان شراب 100 مل",price:55,stock:90,category:"أدوية برد"},
+            {id:194,name:"ميوكوسول شراب 125 مل",price:18,stock:150,category:"أدوية برد"},
+            {id:195,name:"ميوكوسول كبسولات - 20 كبسولة",price:22,stock:120,category:"أدوية برد"},
+            {id:196,name:"سينيكود شراب 100 مل",price:35,stock:85,category:"أدوية برد"},
+            {id:197,name:"أوبلكس شراب 120 مل",price:25,stock:110,category:"أدوية برد"},
+            {id:198,name:"كافوسيد شراب 120 مل",price:20,stock:130,category:"أدوية برد"},
+            {id:199,name:"توسين شراب 120 مل",price:15,stock:160,category:"أدوية برد"},
+            {id:200,name:"أفيروزاك كبسولات - 10 كبسولة",price:28,stock:100,category:"أدوية برد"},
+            {id:201,name:"زيرتك أقراص 10 ملجم - 20 قرص",price:50,stock:90,category:"أدوية برد"},
+            {id:202,name:"كلاريتين أقراص 10 ملجم - 20 قرص",price:55,stock:80,category:"أدوية برد"},
+            {id:203,name:"تلفاست 120 ملجم - 20 قرص",price:60,stock:75,category:"أدوية برد"},
+            {id:204,name:"تلفاست 180 ملجم - 20 قرص",price:75,stock:65,category:"أدوية برد"},
+            {id:205,name:"فينادون شراب 120 مل",price:15,stock:140,category:"أدوية برد"},
+            {id:206,name:"أليرجيل شراب 100 مل",price:12,stock:150,category:"أدوية برد"},
+            {id:207,name:"ديسلوراتادين 5 ملجم - 20 قرص",price:22,stock:120,category:"أدوية برد"},
+            {id:208,name:"سيتيريزين 10 ملجم - 20 قرص",price:12,stock:180,category:"أدوية برد"},
+            {id:209,name:"لوراتادين 10 ملجم - 20 قرص",price:10,stock:200,category:"أدوية برد"},
+            {id:210,name:"إكسيلون نقط أنف 15 مل",price:20,stock:110,category:"أدوية برد"},
+            // كريمات ومراهم (Creams) — 30 items
+            {id:211,name:"فيوسيدين كريم 15 جم",price:35,stock:100,category:"كريمات ومراهم"},
+            {id:212,name:"فيوسيدين مرهم 15 جم",price:35,stock:95,category:"كريمات ومراهم"},
+            {id:213,name:"فولتارين جيل 50 جم",price:55,stock:80,category:"كريمات ومراهم"},
+            {id:214,name:"فاست جيل 50 جم",price:30,stock:110,category:"كريمات ومراهم"},
+            {id:215,name:"ريباريل جيل 40 جم",price:45,stock:75,category:"كريمات ومراهم"},
+            {id:216,name:"ديكلاك جيل 50 جم",price:35,stock:90,category:"كريمات ومراهم"},
+            {id:217,name:"بيتاديرم كريم 15 جم",price:18,stock:150,category:"كريمات ومراهم"},
+            {id:218,name:"ديرموفيت كريم 15 جم",price:28,stock:100,category:"كريمات ومراهم"},
+            {id:219,name:"إليكا كريم 15 جم",price:45,stock:80,category:"كريمات ومراهم"},
+            {id:220,name:"إليكا إم كريم 15 جم",price:55,stock:70,category:"كريمات ومراهم"},
+            {id:221,name:"ميبو مرهم 75 جم",price:90,stock:50,category:"كريمات ومراهم"},
+            {id:222,name:"ميبو مرهم 30 جم",price:45,stock:75,category:"كريمات ومراهم"},
+            {id:223,name:"بيبانثين كريم 30 جم",price:65,stock:60,category:"كريمات ومراهم"},
+            {id:224,name:"بيبانثين بلس كريم 30 جم",price:75,stock:55,category:"كريمات ومراهم"},
+            {id:225,name:"فيوسيكورت كريم 15 جم",price:45,stock:85,category:"كريمات ومراهم"},
+            {id:226,name:"ديبروساليك مرهم 15 جم",price:35,stock:90,category:"كريمات ومراهم"},
+            {id:227,name:"ترافوكورت كريم 15 جم",price:55,stock:65,category:"كريمات ومراهم"},
+            {id:228,name:"كينالوج مرهم 15 جم",price:25,stock:110,category:"كريمات ومراهم"},
+            {id:229,name:"بروكتو جليفينول كريم 30 جم",price:65,stock:55,category:"كريمات ومراهم"},
+            {id:230,name:"بروكتوسيديل مرهم 15 جم",price:45,stock:70,category:"كريمات ومراهم"},
+            {id:231,name:"داكتارين كريم 15 جم",price:22,stock:130,category:"كريمات ومراهم"},
+            {id:232,name:"لاميزيل كريم 15 جم",price:55,stock:60,category:"كريمات ومراهم"},
+            {id:233,name:"كلوتريمازول كريم 20 جم",price:12,stock:160,category:"كريمات ومراهم"},
+            {id:234,name:"كريم سودو 125 جم",price:85,stock:45,category:"كريمات ومراهم"},
+            {id:235,name:"يوريا كريم 50 جم",price:30,stock:90,category:"كريمات ومراهم"},
+            {id:236,name:"جلسرين كريم 100 جم",price:15,stock:140,category:"كريمات ومراهم"},
+            {id:237,name:"فازلين طبي 100 جم",price:10,stock:200,category:"كريمات ومراهم"},
+            {id:238,name:"إيروكسول مرهم 15 جم",price:55,stock:50,category:"كريمات ومراهم"},
+            {id:239,name:"هيموكلار كريم 40 جم",price:42,stock:70,category:"كريمات ومراهم"},
+            {id:240,name:"لوكويد كريم 15 جم",price:38,stock:80,category:"كريمات ومراهم"},
+            // أدوية أطفال (Pediatric) — 30 items
+            {id:241,name:"كالبول شراب 120 ملجم - 100 مل",price:25,stock:130,category:"أدوية أطفال"},
+            {id:242,name:"بروفين شراب للأطفال 100 مل",price:28,stock:120,category:"أدوية أطفال"},
+            {id:243,name:"سيتال شراب 120 ملجم - 100 مل",price:18,stock:160,category:"أدوية أطفال"},
+            {id:244,name:"أدول شراب 120 ملجم - 100 مل",price:15,stock:180,category:"أدوية أطفال"},
+            {id:245,name:"نوروفين شراب للأطفال 100 مل",price:35,stock:90,category:"أدوية أطفال"},
+            {id:246,name:"تمبرال لبوس أطفال 125 ملجم",price:12,stock:200,category:"أدوية أطفال"},
+            {id:247,name:"تمبرال لبوس أطفال 250 ملجم",price:15,stock:180,category:"أدوية أطفال"},
+            {id:248,name:"فلوموكس شراب أطفال 60 مل",price:30,stock:100,category:"أدوية أطفال"},
+            {id:249,name:"أوجمنتين شراب أطفال 60 مل",price:55,stock:80,category:"أدوية أطفال"},
+            {id:250,name:"كيورام شراب أطفال 60 مل",price:50,stock:85,category:"أدوية أطفال"},
+            {id:251,name:"زيثروماكس شراب أطفال 30 مل",price:55,stock:70,category:"أدوية أطفال"},
+            {id:252,name:"سوبراكس شراب أطفال 60 مل",price:65,stock:55,category:"أدوية أطفال"},
+            {id:253,name:"فيدروب نقط 15 مل - فيتامين د",price:15,stock:200,category:"أدوية أطفال"},
+            {id:254,name:"بيبي فيت نقط 30 مل",price:25,stock:150,category:"أدوية أطفال"},
+            {id:255,name:"سانسوفيت حديد شراب 120 مل",price:32,stock:110,category:"أدوية أطفال"},
+            {id:256,name:"سانسوفيت شراب 120 مل",price:28,stock:120,category:"أدوية أطفال"},
+            {id:257,name:"فينتولين شراب أطفال 100 مل",price:18,stock:140,category:"أدوية أطفال"},
+            {id:258,name:"ميوكوسول شراب أطفال 100 مل",price:15,stock:160,category:"أدوية أطفال"},
+            {id:259,name:"بروسبان شراب أطفال 100 مل",price:45,stock:80,category:"أدوية أطفال"},
+            {id:260,name:"أمبروكسول شراب أطفال 100 مل",price:12,stock:170,category:"أدوية أطفال"},
+            {id:261,name:"دنتينوكس جيل 10 جم",price:18,stock:130,category:"أدوية أطفال"},
+            {id:262,name:"ريا هيدرو محلول إرواء 200 مل",price:8,stock:250,category:"أدوية أطفال"},
+            {id:263,name:"سميكتا أكياس - 10 أكياس",price:35,stock:90,category:"أدوية أطفال"},
+            {id:264,name:"فلاجيل شراب أطفال 60 مل",price:15,stock:140,category:"أدوية أطفال"},
+            {id:265,name:"أنتينال شراب أطفال 60 مل",price:15,stock:130,category:"أدوية أطفال"},
+            {id:266,name:"زيرتك نقط 20 مل",price:35,stock:100,category:"أدوية أطفال"},
+            {id:267,name:"فينادون شراب أطفال 100 مل",price:12,stock:150,category:"أدوية أطفال"},
+            {id:268,name:"ديسلور شراب 60 مل",price:18,stock:120,category:"أدوية أطفال"},
+            {id:269,name:"بيبي رينو نقط أنف 15 مل",price:15,stock:140,category:"أدوية أطفال"},
+            {id:270,name:"دوفالاك شراب أطفال 100 مل",price:28,stock:90,category:"أدوية أطفال"},
+            // مكملات غذائية (Supplements) — 30 items
+            {id:271,name:"واي بروتين مصل اللبن 500 جم",price:350,stock:30,category:"مكملات غذائية"},
+            {id:272,name:"كرياتين مونوهيدرات 300 جم",price:200,stock:40,category:"مكملات غذائية"},
+            {id:273,name:"BCAA أحماض أمينية - 30 كيس",price:250,stock:35,category:"مكملات غذائية"},
+            {id:274,name:"جلوتامين 300 جم",price:180,stock:45,category:"مكملات غذائية"},
+            {id:275,name:"ال-كارنتين 500 ملجم - 30 كبسولة",price:120,stock:60,category:"مكملات غذائية"},
+            {id:276,name:"أرجنين 500 ملجم - 30 كبسولة",price:95,stock:55,category:"مكملات غذائية"},
+            {id:277,name:"كافيين 200 ملجم - 60 قرص",price:80,stock:70,category:"مكملات غذائية"},
+            {id:278,name:"فيشر أوميجا 3 - 60 كبسولة",price:120,stock:50,category:"مكملات غذائية"},
+            {id:279,name:"أوبتيمال جولد ستاندرد - 900 جم",price:650,stock:20,category:"مكملات غذائية"},
+            {id:280,name:"سرياس ماس 2.7 كجم",price:500,stock:15,category:"مكملات غذائية"},
+            {id:281,name:"ماس تك 3.2 كجم",price:750,stock:10,category:"مكملات غذائية"},
+            {id:282,name:"إيزو 100 بروتين 700 جم",price:600,stock:18,category:"مكملات غذائية"},
+            {id:283,name:"كولاجين بحري - 30 كيس",price:300,stock:40,category:"مكملات غذائية"},
+            {id:284,name:"كولاجين بودرة 200 جم",price:250,stock:45,category:"مكملات غذائية"},
+            {id:285,name:"حليب اللوز بودرة 400 جم",price:150,stock:55,category:"مكملات غذائية"},
+            {id:286,name:"بروتين بار - علبة 12 قطعة",price:280,stock:30,category:"مكملات غذائية"},
+            {id:287,name:"زيت MCT 250 مل",price:180,stock:35,category:"مكملات غذائية"},
+            {id:288,name:"سبيرولينا 500 ملجم - 60 قرص",price:90,stock:65,category:"مكملات غذائية"},
+            {id:289,name:"كلوريلا 500 ملجم - 60 قرص",price:85,stock:60,category:"مكملات غذائية"},
+            {id:290,name:"جنسنج 250 ملجم - 30 كبسولة",price:65,stock:75,category:"مكملات غذائية"},
+            {id:291,name:"رويال جيلي 1000 ملجم - 30 كبسولة",price:110,stock:50,category:"مكملات غذائية"},
+            {id:292,name:"بروبوليس نقط 30 مل",price:55,stock:80,category:"مكملات غذائية"},
+            {id:293,name:"خل تفاح كبسولات - 60 كبسولة",price:45,stock:90,category:"مكملات غذائية"},
+            {id:294,name:"جارسينيا 500 ملجم - 60 كبسولة",price:75,stock:55,category:"مكملات غذائية"},
+            {id:295,name:"شيتوزان 500 ملجم - 60 كبسولة",price:80,stock:50,category:"مكملات غذائية"},
+            {id:296,name:"أوميجا 3-6-9 - 60 كبسولة",price:95,stock:65,category:"مكملات غذائية"},
+            {id:297,name:"فيتامين سي + زنك فوار - 20 قرص",price:35,stock:120,category:"مكملات غذائية"},
+            {id:298,name:"إلكتروليت فوار - 20 قرص",price:30,stock:100,category:"مكملات غذائية"},
+            {id:299,name:"بروبيوتيك - 30 كبسولة",price:120,stock:45,category:"مكملات غذائية"},
+            {id:300,name:"بريبيوتيك ألياف - 30 كيس",price:85,stock:55,category:"مكملات غذائية"},
         ];
 
         // ===== Category Config =====
@@ -1900,118 +2235,10 @@
             el.querySelector('.status-text').textContent = text;
         }
 
-        function updateProductCount() {
-            const label = document.getElementById('productCountLabel');
-            if (label) label.textContent = `${products.length} دواء متاح`;
-        }
-
-        // ===== Render Category Showcase =====
-        function renderCategoryShowcase() {
-            const container = document.getElementById('categoryShowcase');
-            if (!container) return;
-
-            const cats = categories.filter(c => c !== 'الكل');
-            if (cats.length === 0) {
-                container.style.display = 'none';
-                return;
-            }
-
-            // Show max 4 categories as showcase cards
-            const showcaseCats = cats.slice(0, 4);
-            container.innerHTML = showcaseCats.map(cat => {
-                const config = categoryConfig[cat] || { emoji: '💊', label: cat };
-                const count = products.filter(p => p.category === cat).length;
-                return `
-                    <div class="category-card" onclick="selectCategory('${cat}')">
-                        <div class="category-card-bg">${config.emoji}</div>
-                        <div class="category-card-overlay">
-                            <div class="category-card-label">
-                                ${cat}
-                                <small>${count} دواء</small>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // ===== Render Category Tabs =====
-        function renderCategoryTabs() {
-            const container = document.getElementById('categoryTabs');
-            if (!container) return;
-
-            container.innerHTML = categories.map(cat => {
-                const config = categoryConfig[cat] || { icon: 'fas fa-pills', emoji: '💊' };
-                const isActive = cat === activeCategory ? 'active' : '';
-                const count = cat === 'الكل' ? products.length : products.filter(p => p.category === cat).length;
-                return `
-                    <button class="cat-tab ${isActive}" data-category="${cat}" onclick="selectCategory('${cat}')">
-                        <i class="${config.icon || 'fas fa-pills'}"></i>
-                        <span>${cat} (${count})</span>
-                    </button>
-                `;
-            }).join('');
-        }
-
         function selectCategory(cat) {
             activeCategory = cat;
             renderCategoryTabs();
             applyFilters();
-        }
-
-        // ===== Render Products =====
-        function renderProducts(items) {
-            productsGrid.innerHTML = '';
-            if (items.length === 0) {
-                productsGrid.innerHTML = '<div class="menu-loading"><p>عذراً، لم نتمكن من إيجاد الدواء المطلوب.</p></div>';
-                return;
-            }
-            items.forEach(product => {
-                const inStock = product.stock > 0;
-                const cartItem = cart.find(c => c.id === product.id);
-                const inCart = cartItem ? cartItem.qty : 0;
-                const config = categoryConfig[product.category] || { emoji: '💊' };
-
-                // Stock tag
-                let stockTagClass = 'in-stock';
-                let stockTagText = 'متوفر';
-                if (product.stock === 0) {
-                    stockTagClass = 'out-of-stock';
-                    stockTagText = 'غير متوفر';
-                } else if (product.stock <= 10) {
-                    stockTagClass = 'low-stock';
-                    stockTagText = 'كمية محدودة';
-                }
-
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.id = `card-${product.id}`;
-                card.innerHTML = `
-                    <div class="product-card-img">
-                        <div class="stock-tag ${stockTagClass}">${stockTagText}</div>
-                        ${inCart > 0 ? `<div class="in-cart-badge">${inCart}</div>` : ''}
-                        <span class="pill-icon">${config.emoji}</span>
-                    </div>
-                    <div class="product-card-body">
-                        <div class="product-card-category">${product.category}</div>
-                        <div class="product-card-name">${product.name}</div>
-                        <div class="product-card-stock">
-                            <i class="fas fa-box"></i>
-                            المخزون: <strong>${product.stock}</strong> ${product.stock === 0 ? '' : 'قطعة'}
-                        </div>
-                        <div class="product-card-footer">
-                            <div class="product-card-price">${product.price} <small>جنيه</small></div>
-                            <button class="add-btn ${inCart > 0 ? 'added' : ''}" 
-                                    onclick="addToCart(${product.id})"
-                                    id="btn-${product.id}"
-                                    ${!inStock ? 'disabled' : ''}>
-                                <i class="fas ${inCart > 0 ? 'fa-check' : 'fa-plus'}"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                productsGrid.appendChild(card);
-            });
         }
 
         // ===== Filters =====
@@ -2026,35 +2253,6 @@
         searchInput.addEventListener('input', () => applyFilters());
 
         // ===== CART =====
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product || product.stock <= 0) return;
-
-            const existing = cart.find(c => c.id === productId);
-            if (existing) {
-                if (existing.qty < product.stock) {
-                    existing.qty++;
-                }
-            } else {
-                cart.push({ id: productId, qty: 1 });
-            }
-
-            // Button feedback
-            const btn = document.getElementById(`btn-${productId}`);
-            if (btn) {
-                btn.classList.add('added');
-                btn.innerHTML = '<i class="fas fa-check"></i>';
-                setTimeout(() => {
-                    btn.classList.remove('added');
-                    btn.innerHTML = '<i class="fas fa-plus"></i>';
-                }, 1200);
-            }
-
-            updateCartUI();
-            applyFilters();
-            showToast(`✅ تمت إضافة "${product.name}" للسلة`, 'success');
-        }
-
         function removeFromCart(productId) {
             cart = cart.filter(c => c.id !== productId);
             updateCartUI();
@@ -2099,53 +2297,6 @@
             renderCartItems();
         }
 
-        function renderCartItems() {
-            const container = document.getElementById('cartItems');
-            const footerEl = document.getElementById('cartFooter');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="cart-empty">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>السلة فارغة</p>
-                    </div>
-                `;
-                footerEl.classList.add('hidden');
-                checkoutBtn.disabled = true;
-                return;
-            }
-
-            footerEl.classList.remove('hidden');
-            checkoutBtn.disabled = false;
-
-            container.innerHTML = cart.map(item => {
-                const product = products.find(p => p.id === item.id);
-                if (!product) return '';
-                const config = categoryConfig[product.category] || { emoji: '💊' };
-                return `
-                    <div class="cart-item">
-                        <div class="cart-item-emoji">${config.emoji}</div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${product.name}</div>
-                            <div class="cart-item-price">${product.price * item.qty} جنيه</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="qty-btn remove" onclick="changeQty(${item.id}, -1)">
-                                <i class="fas ${item.qty === 1 ? 'fa-trash-alt' : 'fa-minus'}"></i>
-                            </button>
-                            <span class="qty-value">${item.qty}</span>
-                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)" ${item.qty >= product.stock ? 'disabled' : ''}>
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('cartTotal').textContent = getCartTotal() + ' جنيه';
-        }
-
         // ===== Cart Toggle =====
         function toggleCart() {
             const sidebar = document.getElementById('cartSidebar');
@@ -2162,37 +2313,6 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
-        }
-
-        // ===== Checkout =====
-        function openCheckout() {
-            if (cart.length === 0) return;
-
-            // Close cart sidebar
-            document.getElementById('cartSidebar').classList.remove('open');
-            document.getElementById('cartOverlay').classList.remove('open');
-
-            // Build summary
-            const summaryHtml = cart.map(item => {
-                const product = products.find(p => p.id === item.id);
-                if (!product) return '';
-                return `
-                    <div class="checkout-item">
-                        <span class="checkout-item-name">${product.name}</span>
-                        <span class="checkout-item-qty">×${item.qty}</span>
-                        <span class="checkout-item-price">${product.price * item.qty} جنيه</span>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('checkoutSummary').innerHTML = summaryHtml;
-            document.getElementById('checkoutTotal').textContent = getCartTotal() + ' جنيه';
-
-            // Show modal
-            document.getElementById('checkoutFormContainer').style.display = 'block';
-            document.getElementById('successState').classList.remove('visible');
-            document.getElementById('checkoutForm').reset();
-            document.getElementById('checkoutModal').classList.add('open');
         }
 
         function closeCheckout() {
@@ -2376,6 +2496,288 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // ===== Language System =====
+        let currentLang = 'ar';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const html = document.documentElement;
+            html.lang = lang;
+            html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update toggle buttons
+            document.querySelectorAll('.lang-option').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update page title
+            document.title = lang === 'ar' ? 'صيدلية الشفاء - حجز الأدوية' : 'Al-Shefaa Pharmacy - Medicine Reservation';
+
+            // Apply to all data-ar / data-en elements
+            document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (el.hasAttribute('data-html') || text.includes('<')) {
+                    el.innerHTML = text;
+                } else {
+                    el.textContent = text;
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-placeholder-ar][data-placeholder-en]').forEach(el => {
+                el.placeholder = el.getAttribute(`data-placeholder-${lang}`);
+            });
+
+            // Update search placeholder
+            const searchEl = document.getElementById('searchInput');
+            if (searchEl) {
+                searchEl.placeholder = lang === 'ar' ? 'ابحث عن اسم الدواء...' : 'Search for a medicine...';
+            }
+
+            // Re-render dynamic content with new language
+            updateProductCount();
+            if (products.length > 0) {
+                renderCategoryShowcase();
+                renderCategoryTabs();
+                applyFilters();
+            }
+            renderCartItems();
+
+            console.log(`🌐 Language set to: ${lang}`);
+        }
+
+        // Language-aware helpers
+        function t(ar, en) {
+            return currentLang === 'ar' ? ar : en;
+        }
+
+        // Override updateProductCount to be language-aware
+        function updateProductCount() {
+            const label = document.getElementById('productCountLabel');
+            if (label) label.textContent = currentLang === 'ar'
+                ? `${products.length} دواء متاح`
+                : `${products.length} medicines available`;
+        }
+
+        // Override renderCategoryShowcase to be language-aware
+        function renderCategoryShowcase() {
+            const container = document.getElementById('categoryShowcase');
+            if (!container) return;
+
+            const cats = categories.filter(c => c !== 'الكل');
+            if (cats.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            const showcaseCats = cats.slice(0, 4);
+            container.innerHTML = showcaseCats.map(cat => {
+                const config = categoryConfig[cat] || { emoji: '💊', label: cat };
+                const count = products.filter(p => p.category === cat).length;
+                const displayName = currentLang === 'ar' ? cat : (config.label || cat);
+                const countLabel = currentLang === 'ar' ? `${count} دواء` : `${count} items`;
+                return `
+                    <div class="category-card" onclick="selectCategory('${cat}')">
+                        <div class="category-card-bg">${config.emoji}</div>
+                        <div class="category-card-overlay">
+                            <div class="category-card-label">
+                                ${displayName}
+                                <small>${countLabel}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Override renderCategoryTabs to be language-aware
+        function renderCategoryTabs() {
+            const container = document.getElementById('categoryTabs');
+            if (!container) return;
+
+            container.innerHTML = categories.map(cat => {
+                const config = categoryConfig[cat] || { icon: 'fas fa-pills', emoji: '💊', label: cat };
+                const isActive = cat === activeCategory ? 'active' : '';
+                const count = cat === 'الكل' ? products.length : products.filter(p => p.category === cat).length;
+                const displayName = currentLang === 'ar' ? cat : (cat === 'الكل' ? 'All' : (config.label || cat));
+                return `
+                    <button class="cat-tab ${isActive}" data-category="${cat}" onclick="selectCategory('${cat}')">
+                        <i class="${config.icon || 'fas fa-pills'}"></i>
+                        <span>${displayName} (${count})</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Override renderProducts to be language-aware
+        function renderProducts(items) {
+            productsGrid.innerHTML = '';
+            if (items.length === 0) {
+                productsGrid.innerHTML = `<div class="menu-loading"><p>${t('عذراً، لم نتمكن من إيجاد الدواء المطلوب.', 'Sorry, no medicines found.')}</p></div>`;
+                return;
+            }
+            items.forEach(product => {
+                const inStock = product.stock > 0;
+                const cartItem = cart.find(c => c.id === product.id);
+                const inCart = cartItem ? cartItem.qty : 0;
+                const config = categoryConfig[product.category] || { emoji: '💊', label: product.category };
+                const catDisplay = currentLang === 'ar' ? product.category : (config.label || product.category);
+
+                let stockTagClass = 'in-stock';
+                let stockTagText = t('متوفر', 'In Stock');
+                if (product.stock === 0) {
+                    stockTagClass = 'out-of-stock';
+                    stockTagText = t('غير متوفر', 'Out of Stock');
+                } else if (product.stock <= 10) {
+                    stockTagClass = 'low-stock';
+                    stockTagText = t('كمية محدودة', 'Low Stock');
+                }
+
+                const stockLabel = t('المخزون:', 'Stock:');
+                const unitLabel = product.stock === 0 ? '' : t('قطعة', 'pcs');
+                const priceUnit = t('جنيه', 'EGP');
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.id = `card-${product.id}`;
+                card.innerHTML = `
+                    <div class="product-card-img">
+                        <div class="stock-tag ${stockTagClass}">${stockTagText}</div>
+                        ${inCart > 0 ? `<div class="in-cart-badge">${inCart}</div>` : ''}
+                        <span class="pill-icon">${config.emoji}</span>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-card-category">${catDisplay}</div>
+                        <div class="product-card-name">${product.name}</div>
+                        <div class="product-card-stock">
+                            <i class="fas fa-box"></i>
+                            ${stockLabel} <strong>${product.stock}</strong> ${unitLabel}
+                        </div>
+                        <div class="product-card-footer">
+                            <div class="product-card-price">${product.price} <small>${priceUnit}</small></div>
+                            <button class="add-btn ${inCart > 0 ? 'added' : ''}" 
+                                    onclick="addToCart(${product.id})"
+                                    id="btn-${product.id}"
+                                    ${!inStock ? 'disabled' : ''}>
+                                <i class="fas ${inCart > 0 ? 'fa-check' : 'fa-plus'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Override renderCartItems to be language-aware
+        function renderCartItems() {
+            const container = document.getElementById('cartItems');
+            const footerEl = document.getElementById('cartFooter');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>${t('السلة فارغة', 'Cart is empty')}</p>
+                    </div>
+                `;
+                footerEl.classList.add('hidden');
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            footerEl.classList.remove('hidden');
+            checkoutBtn.disabled = false;
+            const priceUnit = t('جنيه', 'EGP');
+
+            container.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return '';
+                const config = categoryConfig[product.category] || { emoji: '💊' };
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-emoji">${config.emoji}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${product.name}</div>
+                            <div class="cart-item-price">${product.price * item.qty} ${priceUnit}</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn remove" onclick="changeQty(${item.id}, -1)">
+                                <i class="fas ${item.qty === 1 ? 'fa-trash-alt' : 'fa-minus'}"></i>
+                            </button>
+                            <span class="qty-value">${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)" ${item.qty >= product.stock ? 'disabled' : ''}>
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotal').textContent = getCartTotal() + ' ' + priceUnit;
+        }
+
+        // Override showToast add-to-cart message
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product || product.stock <= 0) return;
+
+            const existing = cart.find(c => c.id === productId);
+            if (existing) {
+                if (existing.qty < product.stock) {
+                    existing.qty++;
+                }
+            } else {
+                cart.push({ id: productId, qty: 1 });
+            }
+
+            const btn = document.getElementById(`btn-${productId}`);
+            if (btn) {
+                btn.classList.add('added');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.classList.remove('added');
+                    btn.innerHTML = '<i class="fas fa-plus"></i>';
+                }, 1200);
+            }
+
+            updateCartUI();
+            applyFilters();
+            const msg = currentLang === 'ar'
+                ? `✅ تمت إضافة "${product.name}" للسلة`
+                : `✅ "${product.name}" added to cart`;
+            showToast(msg, 'success');
+        }
+
+        // Override openCheckout for language
+        function openCheckout() {
+            if (cart.length === 0) return;
+
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.getElementById('cartOverlay').classList.remove('open');
+
+            const priceUnit = t('جنيه', 'EGP');
+            const summaryHtml = cart.map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return '';
+                return `
+                    <div class="checkout-item">
+                        <span class="checkout-item-name">${product.name}</span>
+                        <span class="checkout-item-qty">×${item.qty}</span>
+                        <span class="checkout-item-price">${product.price * item.qty} ${priceUnit}</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('checkoutSummary').innerHTML = summaryHtml;
+            document.getElementById('checkoutTotal').textContent = getCartTotal() + ' ' + priceUnit;
+
+            document.getElementById('checkoutFormContainer').style.display = 'block';
+            document.getElementById('successState').classList.remove('visible');
+            document.getElementById('checkoutForm').reset();
+            document.getElementById('checkoutModal').classList.add('open');
+        }
 
         // ===== Init =====
         updateCartUI();
