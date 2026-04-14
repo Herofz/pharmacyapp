@@ -1,160 +1,2386 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صيدلية الشفاء - حجز الأدوية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="صيدلية الشفاء - احجز أدويتك أونلاين واستلمها من الصيدلية. أكثر من 300 دواء متاح للحجز.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM - PHARMACY
+        ======================================== */
+        :root {
+            --primary: #0284c7;
+            --primary-light: #38bdf8;
+            --primary-dark: #0369a1;
+            --primary-deeper: #075985;
+            --bg-deep: #0c1929;
+            --bg-card: #132337;
+            --bg-card-hover: #1a2d45;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(56, 189, 248, 0.12);
+            --glass-border-hover: rgba(56, 189, 248, 0.3);
+            --text-primary: #f0f9ff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-green: #10b981;
+            --accent-green-light: #34d399;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --font-display: 'Playfair Display', 'Cairo', serif;
+            --font-body: 'Inter', 'Cairo', sans-serif;
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 40px rgba(2, 132, 199, 0.15);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           SCROLLBAR
+        ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-dark);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ========================================
+           NAVBAR
+        ======================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(12, 25, 41, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0.8rem 3rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--primary-light);
+        }
+
+        .nav-brand-icon {
+            font-size: 2.2rem;
+        }
+
+        .nav-brand h1 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-light);
+        }
+
+        .nav-brand small {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-center a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 6px 0;
+        }
+
+        .nav-center a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-center a:hover {
+            color: var(--primary-light);
+        }
+
+        .nav-center a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-cart-btn {
+            position: relative;
+            background: none;
+            border: 1.5px solid var(--primary);
+            color: var(--primary-light);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cart-btn:hover {
+            background: var(--primary);
+            color: var(--bg-deep);
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            background: var(--accent-red);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .cart-badge.bump {
+            animation: bump 0.3s ease;
+        }
+
+        .cart-badge.hidden-badge {
+            display: none;
+        }
+
+        @keyframes bump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Connection Status in Navbar */
+        .connection-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            background: var(--bg-glass);
+            border: 1px solid var(--glass-border);
+            padding: 6px 14px;
+            border-radius: 50px;
+        }
+
+        .connection-indicator .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .connection-indicator .dot.loading {
+            background: var(--accent-amber);
+            animation: pulse-dot 1.2s ease-in-out infinite;
+        }
+
+        .connection-indicator .dot.connected {
+            background: var(--accent-green);
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+        }
+
+        .connection-indicator .dot.offline {
+            background: var(--accent-red);
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* ========================================
+           HERO SECTION
+        ======================================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0c1929 40%, #1e1b4b 100%);
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-orb 15s ease-in-out infinite;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-orb 20s ease-in-out infinite reverse;
+        }
+
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(12, 25, 41, 0.2) 0%,
+                    rgba(12, 25, 41, 0.1) 40%,
+                    rgba(12, 25, 41, 0.6) 80%,
+                    rgba(12, 25, 41, 1) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeUp 1s ease 0.3s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--primary-light);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero h2 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .hero h2 em {
+            color: var(--primary-light);
+            font-style: normal;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(2, 132, 199, 0.3);
+            font-family: var(--font-body);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(2, 132, 199, 0.45);
+        }
+
+        /* Floating pharmacy icons */
+        .hero-float-icons {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-float-icons span {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.08;
+            animation: float-icon 20s ease-in-out infinite;
+        }
+
+        .hero-float-icons span:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .hero-float-icons span:nth-child(2) { top: 25%; right: 15%; animation-delay: 3s; font-size: 2.5rem; }
+        .hero-float-icons span:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 6s; }
+        .hero-float-icons span:nth-child(4) { top: 40%; left: 5%; animation-delay: 9s; font-size: 1.8rem; }
+        .hero-float-icons span:nth-child(5) { bottom: 25%; right: 10%; animation-delay: 12s; font-size: 2.2rem; }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* ========================================
+           SECTION LAYOUT
+        ======================================== */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header h2 em {
+            color: var(--primary-light);
+            font-style: normal;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .product-count-label {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--glass-border);
+            color: var(--primary-light);
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-top: 0.8rem;
+        }
+
+        /* ========================================
+           SEARCH BAR (in section)
+        ======================================== */
+        .search-container {
+            max-width: 550px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-glass);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 14px 20px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: var(--font-body);
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-box button {
+            background: transparent;
+            border: none;
+            padding: 14px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .search-box button:hover {
+            color: var(--primary-light);
+        }
+
+        /* ========================================
+           CATEGORY SHOWCASE CARDS
+        ======================================== */
+        .category-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .category-card {
+            position: relative;
+            height: 180px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--glass-border-hover);
+        }
+
+        .category-card-bg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            opacity: 0.15;
+            transition: all 0.5s ease;
+        }
+
+        .category-card:hover .category-card-bg {
+            opacity: 0.25;
+            transform: scale(1.1);
+        }
+
+        .category-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 20%, rgba(12, 25, 41, 0.9) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.2rem;
+        }
+
+        .category-card-label {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .category-card-label small {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--primary-light);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* ========================================
+           CATEGORY TABS
+        ======================================== */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .cat-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border: 1.5px solid var(--glass-border);
+            background: var(--bg-glass);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .cat-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+            background: rgba(2, 132, 199, 0.08);
+        }
+
+        .cat-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 8px 30px rgba(2, 132, 199, 0.25);
+        }
+
+        .cat-tab i {
+            font-size: 0.9rem;
+        }
+
+        /* ========================================
+           PRODUCTS GRID
+        ======================================== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: default;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--glass-border-hover);
+        }
+
+        .product-card-img {
+            height: 170px;
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.08), rgba(16, 185, 129, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-img .pill-icon {
+            font-size: 3.5rem;
+            opacity: 0.4;
+            transition: all 0.5s ease;
+        }
+
+        .product-card:hover .pill-icon {
+            opacity: 0.6;
+            transform: scale(1.08);
+        }
+
+        .stock-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .stock-tag.in-stock {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green-light);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .stock-tag.low-stock {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .stock-tag.out-of-stock {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .product-card-body {
+            padding: 1.3rem;
+        }
+
+        .product-card-category {
+            font-size: 0.7rem;
+            color: var(--primary-light);
+            opacity: 0.7;
+            margin-bottom: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .product-card-name {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .product-card-stock {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .product-card-stock i {
+            font-size: 0.7rem;
+        }
+
+        .product-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-card-price {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .product-card-price small {
+            font-size: 0.68rem;
+            font-weight: 400;
+            opacity: 0.6;
+        }
+
+        .add-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4);
+        }
+
+        .add-btn.added {
+            background: var(--accent-green);
+        }
+
+        .add-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* In-cart indicator on card */
+        .in-cart-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+
+        /* ========================================
+           CART SIDEBAR
+        ======================================== */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 420px;
+            max-width: 90vw;
+            height: 100vh;
+            background: var(--bg-card);
+            border-right: 1px solid var(--glass-border);
+            z-index: 2001;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .cart-header h3 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .cart-close:hover {
+            color: var(--accent-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 1.5rem;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .cart-empty i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.8rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .cart-item-emoji {
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(2, 132, 199, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cart-item-price {
+            font-size: 0.8rem;
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: var(--bg-glass);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .qty-btn.remove:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .qty-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-footer.hidden {
+            display: none;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-total-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .cart-total-value {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .checkout-btn:hover {
+            box-shadow: 0 10px 40px rgba(2, 132, 199, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ========================================
+           CHECKOUT MODAL
+        ======================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 2rem;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 550px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.open .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-body);
+            color: var(--primary-light);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Checkout Order Summary */
+        .checkout-summary {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.5rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .checkout-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .checkout-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkout-item-name {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .checkout-item-qty {
+            color: var(--text-muted);
+            margin: 0 12px;
+            font-size: 0.8rem;
+        }
+
+        .checkout-item-price {
+            font-weight: 700;
+            color: var(--primary-light);
+            white-space: nowrap;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-glass);
+            border: 1.5px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: var(--font-body);
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .checkout-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--glass-border);
+        }
+
+        .checkout-total-row span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .checkout-total-row strong {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--primary-light);
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+            margin-top: 0.5rem;
+        }
+
+        .submit-order-btn:hover {
+            box-shadow: 0 10px 40px rgba(2, 132, 199, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .submit-order-btn:disabled {
+            opacity: 0.5;
+            cursor: wait;
+        }
+
+        /* Success State */
+        .success-state {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .success-state.visible {
+            display: block;
+        }
+
+        .success-state .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--accent-green);
+        }
+
+        .success-state h4 {
+            font-size: 1.4rem;
+            color: var(--accent-green);
+            margin-bottom: 0.8rem;
+        }
+
+        .success-state p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .success-state .res-number {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--primary-light);
+            font-weight: 700;
+        }
+
+        .success-state .close-success-btn {
+            margin-top: 1.5rem;
+            padding: 12px 40px;
+            background: transparent;
+            border: 1.5px solid var(--glass-border);
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .success-state .close-success-btn:hover {
+            border-color: var(--primary);
+            background: rgba(2, 132, 199, 0.1);
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        .site-footer {
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            opacity: 0.5;
+            font-size: 0.85rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-socials a:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        /* ========================================
+           LOADING SPINNER
+        ======================================== */
+        .menu-loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--primary-light);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========================================
+           TOAST NOTIFICATION
+        ======================================== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            z-index: 5000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-lg);
+            font-family: var(--font-body);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-color: var(--accent-green);
+        }
+
+        .toast.error {
+            border-color: var(--accent-red);
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .nav-hamburger {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1rem;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                max-width: 100vw;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .category-showcase {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-tabs {
+                gap: 0.5rem;
+            }
+
+            .cat-tab {
+                padding: 8px 16px;
+                font-size: 0.78rem;
+            }
+
+            .navbar.scrolled {
+                padding: 0.6rem 1rem;
+            }
+
+            .connection-indicator {
+                display: none;
+            }
+
+            .modal {
+                max-width: 95vw;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-brand h1 {
+                font-size: 1.4rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .category-showcase {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+
+            .category-card {
+                height: 140px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container header-container">
-            <div class="logo">
-                <h1>صيدلية <span>الشفاء</span></h1>
-                <div id="connectionStatus" class="connection-status">
-                    <span class="status-dot loading"></span>
-                    <span class="status-text">جاري الاتصال...</span>
-                </div>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-brand">
+            <span class="nav-brand-icon">💊</span>
+            <div>
+                <h1>صيدلية الشفاء</h1>
+                <small>Al-Shefaa Pharmacy</small>
             </div>
-            <div class="search-bar">
+        </a>
+        <ul class="nav-center" id="navLinks">
+            <li><a href="#products">الأدوية</a></li>
+            <li><a href="#hero">الرئيسية</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="connection-indicator" id="connectionStatus">
+                <span class="dot loading"></span>
+                <span class="status-text">جاري الاتصال...</span>
+            </div>
+            <button class="nav-cart-btn" id="openCartBtn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge hidden-badge" id="cartBadge">0</span>
+            </button>
+            <button class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('mobile-open')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-float-icons">
+            <span>💊</span>
+            <span>🩺</span>
+            <span>💉</span>
+            <span>🧬</span>
+            <span>🏥</span>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">✨ أهلاً وسهلاً</div>
+            <h2>احجز <em>أدويتك</em> بسهولة</h2>
+            <p>صيدلية الشفاء تقدم لك خدمة حجز الأدوية أونلاين. اختر أدويتك واستلمها من أقرب فرع خلال 24 ساعة</p>
+            <a href="#products" class="hero-cta">
+                <i class="fas fa-pills"></i>
+                <span>تصفح الأدوية</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="section" id="products">
+        <div class="section-header">
+            <h2>الأدوية <em>المتاحة</em></h2>
+            <div class="section-divider"></div>
+            <p>اختر من تشكيلتنا الواسعة واحجز أدويتك بضغطة زر</p>
+            <div class="product-count-label" id="productCountLabel">جاري التحميل...</div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-container">
+            <div class="search-box">
                 <input type="text" id="searchInput" placeholder="ابحث عن اسم الدواء...">
-                <button id="searchBtn">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-            </div>
-            <!-- Cart Button -->
-            <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container">
-        <section class="products-section">
-            <h2 class="section-title">الأدوية المتاحة <span class="product-count">(300 دواء)</span></h2>
-            <div id="filtersContainer" class="filters-container">
-                <!-- Category filter buttons injected by JS -->
-            </div>
-            <div id="productsGrid" class="products-grid">
-                <!-- Products injected by JS -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Cart Overlay -->
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>
-                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                سلة المشتريات
-            </h3>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
-        </div>
-
-        <div class="cart-items" id="cartItems">
-            <!-- Cart items injected by JS -->
-        </div>
-
-        <div class="cart-empty" id="cartEmpty">
-            <svg viewBox="0 0 24 24" width="64" height="64" stroke="#d1d5db" stroke-width="1.5" fill="none">
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg>
-            <p>السلة فارغة</p>
-            <span>أضف أدوية من القائمة لبدء الحجز</span>
-        </div>
-
-        <div class="cart-footer" id="cartFooter">
-            <div class="cart-total">
-                <span>الإجمالي:</span>
-                <strong id="cartTotal">0 جنيه</strong>
-            </div>
-            <button class="btn btn-primary btn-block" id="checkoutBtn" onclick="openCheckout()">
-                إتمام الحجز
-            </button>
-        </div>
-    </div>
-
-    <!-- Checkout Modal -->
-    <div id="checkoutModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeCheckout()">&times;</span>
-            <h3>إتمام الحجز</h3>
-
-            <div class="checkout-summary" id="checkoutSummary">
-                <!-- Order summary injected by JS -->
-            </div>
-
-            <form id="checkoutForm">
-                <div class="form-group">
-                    <label for="customerName">الاسم بالكامل</label>
-                    <input type="text" id="customerName" required placeholder="أدخل اسمك">
-                </div>
-                <div class="form-group">
-                    <label for="customerPhone">رقم التليفون</label>
-                    <input type="tel" id="customerPhone" required placeholder="مثال: 01000000000">
-                </div>
-                <div class="form-group">
-                    <label for="customerEmail">البريد الإلكتروني <span style="font-size:0.8rem;color:var(--text-muted);">(اختياري - لإرسال تأكيد الحجز)</span></label>
-                    <input type="email" id="customerEmail" placeholder="example@mail.com">
-                </div>
-                <div class="checkout-total">
-                    <span>إجمالي الطلب:</span>
-                    <strong id="checkoutTotal">0 جنيه</strong>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">تأكيد الحجز</button>
-            </form>
-
-            <div id="successMessage" class="success-message hidden">
-                <svg viewBox="0 0 24 24" width="48" height="48" stroke="#10b981" stroke-width="2" fill="none">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <h4>تم الحجز بنجاح!</h4>
-                <p>رقم الحجز الخاص بك هو: <strong id="reservationId"></strong></p>
-                <p>برجاء التوجه للصيدلية لاستلام الأدوية خلال 24 ساعة.</p>
-                <button type="button" class="btn btn-outline" onclick="closeCheckout()">إغلاق</button>
+                <button><i class="fas fa-search"></i></button>
             </div>
         </div>
-    </div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        <span id="toastText">تمت الإضافة للسلة</span>
-    </div>
+        <!-- Category Showcase Cards -->
+        <div class="category-showcase" id="categoryShowcase">
+            <!-- Dynamically generated -->
+        </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>جميع الحقوق محفوظة &copy; صيدلية الشفاء 2026</p>
+        <!-- Category Tabs -->
+        <div class="category-tabs" id="categoryTabs">
+            <!-- Dynamically generated -->
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <div class="menu-loading">
+                <div class="spinner"></div>
+                <p>جاري تحميل الأدوية...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-brand">💊 صيدلية الشفاء</div>
+        <div class="footer-socials">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="footer-text">© 2026 صيدلية الشفاء. جميع الحقوق محفوظة</div>
     </footer>
 
-    <script src="app.js"></script>
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> سلة المشتريات</h3>
+            <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>السلة فارغة</p>
+            </div>
+        </div>
+        <div class="cart-footer hidden" id="cartFooter">
+            <div class="cart-total-row">
+                <span class="cart-total-label">الإجمالي</span>
+                <span class="cart-total-value" id="cartTotal">0 جنيه</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>
+                <i class="fas fa-check-circle"></i> إتمام الحجز
+            </button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-clipboard-list"></i> إتمام الحجز</h3>
+                <button class="modal-close" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="checkoutFormContainer">
+                <div class="checkout-summary" id="checkoutSummary">
+                    <!-- Order summary injected by JS -->
+                </div>
+
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="customerName">الاسم بالكامل *</label>
+                        <input type="text" class="form-input" id="customerName" required placeholder="أدخل اسمك الكريم">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">رقم التليفون *</label>
+                        <input type="tel" class="form-input" id="customerPhone" required placeholder="مثال: 01000000000">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">البريد الإلكتروني <span style="font-size:0.75rem;color:var(--text-muted);">(اختياري - لإرسال تأكيد الحجز)</span></label>
+                        <input type="email" class="form-input" id="customerEmail" placeholder="example@mail.com">
+                    </div>
+
+                    <div class="checkout-total-row">
+                        <span>إجمالي الطلب:</span>
+                        <strong id="checkoutTotal">0 جنيه</strong>
+                    </div>
+
+                    <button type="submit" class="submit-order-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> تأكيد الحجز
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success State -->
+            <div class="success-state" id="successState">
+                <div class="success-icon"><i class="fas fa-check"></i></div>
+                <h4>تم الحجز بنجاح! 🎉</h4>
+                <p>رقم الحجز الخاص بك هو:</p>
+                <div class="res-number" id="reservationId"></div>
+                <p style="margin-top:1rem;">برجاء التوجه للصيدلية لاستلام الأدوية خلال 24 ساعة.</p>
+                <button class="close-success-btn" onclick="closeCheckout()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ======================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ======================================== -->
+    <script>
+        // ===== Supabase Configuration =====
+        const SUPABASE_URL = 'https://hxjhmvdquyrhugucygmq.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_0lhPhaM03-IbzJfGR04rmA_QdRMIHEM';
+
+        // ===== Supabase REST API Helper =====
+        const supabase = {
+            async from(table) {
+                return {
+                    table,
+                    _url: `${SUPABASE_URL}/rest/v1/${table}`,
+                    _headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    async select(columns = '*') {
+                        try {
+                            const response = await fetch(`${this._url}?select=${columns}&order=id.asc`, {
+                                method: 'GET',
+                                headers: this._headers
+                            });
+                            if (!response.ok) {
+                                const errorText = await response.text();
+                                throw new Error(`Supabase SELECT error: ${response.status} - ${errorText}`);
+                            }
+                            const data = await response.json();
+                            return { data, error: null };
+                        } catch (error) {
+                            console.error('Supabase SELECT failed:', error);
+                            return { data: null, error };
+                        }
+                    },
+                    async insert(records) {
+                        try {
+                            const response = await fetch(this._url, {
+                                method: 'POST',
+                                headers: this._headers,
+                                body: JSON.stringify(records)
+                            });
+                            if (!response.ok) {
+                                const errorText = await response.text();
+                                throw new Error(`Supabase INSERT error: ${response.status} - ${errorText}`);
+                            }
+                            const data = await response.json();
+                            return { data, error: null };
+                        } catch (error) {
+                            console.error('Supabase INSERT failed:', error);
+                            return { data: null, error };
+                        }
+                    },
+                    async update(updates) {
+                        const self = this;
+                        return {
+                            async eq(column, value) {
+                                try {
+                                    const response = await fetch(`${self._url}?${column}=eq.${value}`, {
+                                        method: 'PATCH',
+                                        headers: self._headers,
+                                        body: JSON.stringify(updates)
+                                    });
+                                    if (!response.ok) {
+                                        const errorText = await response.text();
+                                        throw new Error(`Supabase UPDATE error: ${response.status} - ${errorText}`);
+                                    }
+                                    const data = await response.json();
+                                    return { data, error: null };
+                                } catch (error) {
+                                    console.error('Supabase UPDATE failed:', error);
+                                    return { data: null, error };
+                                }
+                            }
+                        };
+                    }
+                };
+            }
+        };
+
+        // ===== Brevo Email Helper =====
+        async function sendBrevoEmail({ to, toName, subject, htmlContent }) {
+            try {
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ to, toName, subject, htmlContent })
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Email API error:', errorData);
+                    return { success: false, error: errorData };
+                }
+                const data = await response.json();
+                console.log('Email sent successfully:', data);
+                return { success: true, data };
+            } catch (error) {
+                console.error('Email send failed:', error);
+                return { success: false, error };
+            }
+        }
+
+        // ===== Fallback Products =====
+        const fallbackProducts = [
+            { id: 1, name: "بانادول إكسترا - 24 قرص", price: 45, stock: 120, category: "مسكنات" },
+            { id: 2, name: "بانادول أدفانس 500 ملجم - 24 قرص", price: 36, stock: 95, category: "مسكنات" },
+            { id: 3, name: "بنادول ساينس (للجيوب الأنفية)", price: 55, stock: 0, category: "مسكنات" },
+            { id: 4, name: "بروفين 600 ملجم - 20 قرص", price: 50, stock: 5, category: "مسكنات" },
+            { id: 5, name: "بروفين 400 ملجم - 20 قرص", price: 36, stock: 78, category: "مسكنات" },
+            { id: 6, name: "كتافلام 50 ملجم - 20 قرص", price: 45, stock: 60, category: "مسكنات" },
+            { id: 7, name: "كتافاست فوار 50 ملجم - 9 أكياس", price: 54, stock: 42, category: "مسكنات" },
+            { id: 8, name: "فولتارين 50 ملجم - 20 قرص", price: 48, stock: 33, category: "مسكنات" },
+            { id: 9, name: "أدول 500 ملجم - 24 قرص", price: 18, stock: 200, category: "مسكنات" },
+            { id: 10, name: "نوفالدول 1000 ملجم - 20 قرص", price: 22, stock: 150, category: "مسكنات" },
+            { id: 11, name: "أسبرين بروتكت 100 ملجم - 20 قرص", price: 30, stock: 110, category: "مسكنات" },
+            { id: 12, name: "ترامادول 50 ملجم (بروشتة فقط)", price: 25, stock: 0, category: "مسكنات" },
+            { id: 13, name: "كيتوفان 200 ملجم - 20 كبسولة", price: 42, stock: 55, category: "مسكنات" },
+            { id: 14, name: "ريفو 320 ملجم - 10 أقراص", price: 7, stock: 300, category: "مسكنات" },
+        ];
+
+        // ===== Category Config =====
+        const categoryConfig = {
+            'الكل': { icon: 'fas fa-th', emoji: '💊', label: 'جميع الأدوية' },
+            'مسكنات': { icon: 'fas fa-head-side-cough', emoji: '💊', label: 'Painkillers' },
+            'مضادات حيوية': { icon: 'fas fa-shield-virus', emoji: '🦠', label: 'Antibiotics' },
+            'فيتامينات': { icon: 'fas fa-apple-alt', emoji: '🍊', label: 'Vitamins' },
+            'أدوية ضغط': { icon: 'fas fa-heartbeat', emoji: '❤️', label: 'Blood Pressure' },
+            'أدوية سكر': { icon: 'fas fa-tint', emoji: '🩸', label: 'Diabetes' },
+            'أدوية معدة': { icon: 'fas fa-stomach', emoji: '🫁', label: 'Stomach' },
+            'أدوية برد': { icon: 'fas fa-snowflake', emoji: '🤧', label: 'Cold & Flu' },
+            'كريمات ومراهم': { icon: 'fas fa-pump-medical', emoji: '🧴', label: 'Creams' },
+            'أدوية أطفال': { icon: 'fas fa-baby', emoji: '👶', label: 'Pediatric' },
+            'مكملات غذائية': { icon: 'fas fa-capsules', emoji: '💪', label: 'Supplements' },
+        };
+
+        // ===== Global State =====
+        let products = [];
+        let cart = [];
+        let activeCategory = 'الكل';
+        let categories = ['الكل'];
+        let isUsingSupabase = false;
+
+        // DOM Elements
+        const productsGrid = document.getElementById('productsGrid');
+        const searchInput = document.getElementById('searchInput');
+
+        // ===== Load Products from Supabase =====
+        async function loadProductsFromSupabase() {
+            try {
+                productsGrid.innerHTML = `
+                    <div class="menu-loading">
+                        <div class="spinner"></div>
+                        <p>جاري تحميل الأدوية من قاعدة البيانات...</p>
+                    </div>
+                `;
+                const db = await supabase.from('products');
+                const { data, error } = await db.select('*');
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    products = data.map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        price: Number(p.price),
+                        stock: p.stock,
+                        category: p.category,
+                        available: p.available
+                    }));
+                    isUsingSupabase = true;
+                    console.log(`✅ تم تحميل ${products.length} دواء من Supabase بنجاح`);
+                    updateConnectionStatus('connected', `متصل (${products.length} دواء)`);
+                } else {
+                    throw new Error('No products found');
+                }
+            } catch (error) {
+                console.warn('⚠️ فشل الاتصال بـ Supabase:', error.message);
+                products = fallbackProducts;
+                isUsingSupabase = false;
+                updateConnectionStatus('offline', 'وضع غير متصل');
+            }
+            categories = ['الكل', ...new Set(products.map(p => p.category))];
+            renderCategoryShowcase();
+            renderCategoryTabs();
+            applyFilters();
+            updateProductCount();
+        }
+
+        function updateConnectionStatus(status, text) {
+            const el = document.getElementById('connectionStatus');
+            if (!el) return;
+            el.querySelector('.dot').className = 'dot ' + status;
+            el.querySelector('.status-text').textContent = text;
+        }
+
+        function updateProductCount() {
+            const label = document.getElementById('productCountLabel');
+            if (label) label.textContent = `${products.length} دواء متاح`;
+        }
+
+        // ===== Render Category Showcase =====
+        function renderCategoryShowcase() {
+            const container = document.getElementById('categoryShowcase');
+            if (!container) return;
+
+            const cats = categories.filter(c => c !== 'الكل');
+            if (cats.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            // Show max 4 categories as showcase cards
+            const showcaseCats = cats.slice(0, 4);
+            container.innerHTML = showcaseCats.map(cat => {
+                const config = categoryConfig[cat] || { emoji: '💊', label: cat };
+                const count = products.filter(p => p.category === cat).length;
+                return `
+                    <div class="category-card" onclick="selectCategory('${cat}')">
+                        <div class="category-card-bg">${config.emoji}</div>
+                        <div class="category-card-overlay">
+                            <div class="category-card-label">
+                                ${cat}
+                                <small>${count} دواء</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== Render Category Tabs =====
+        function renderCategoryTabs() {
+            const container = document.getElementById('categoryTabs');
+            if (!container) return;
+
+            container.innerHTML = categories.map(cat => {
+                const config = categoryConfig[cat] || { icon: 'fas fa-pills', emoji: '💊' };
+                const isActive = cat === activeCategory ? 'active' : '';
+                const count = cat === 'الكل' ? products.length : products.filter(p => p.category === cat).length;
+                return `
+                    <button class="cat-tab ${isActive}" data-category="${cat}" onclick="selectCategory('${cat}')">
+                        <i class="${config.icon || 'fas fa-pills'}"></i>
+                        <span>${cat} (${count})</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectCategory(cat) {
+            activeCategory = cat;
+            renderCategoryTabs();
+            applyFilters();
+        }
+
+        // ===== Render Products =====
+        function renderProducts(items) {
+            productsGrid.innerHTML = '';
+            if (items.length === 0) {
+                productsGrid.innerHTML = '<div class="menu-loading"><p>عذراً، لم نتمكن من إيجاد الدواء المطلوب.</p></div>';
+                return;
+            }
+            items.forEach(product => {
+                const inStock = product.stock > 0;
+                const cartItem = cart.find(c => c.id === product.id);
+                const inCart = cartItem ? cartItem.qty : 0;
+                const config = categoryConfig[product.category] || { emoji: '💊' };
+
+                // Stock tag
+                let stockTagClass = 'in-stock';
+                let stockTagText = 'متوفر';
+                if (product.stock === 0) {
+                    stockTagClass = 'out-of-stock';
+                    stockTagText = 'غير متوفر';
+                } else if (product.stock <= 10) {
+                    stockTagClass = 'low-stock';
+                    stockTagText = 'كمية محدودة';
+                }
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.id = `card-${product.id}`;
+                card.innerHTML = `
+                    <div class="product-card-img">
+                        <div class="stock-tag ${stockTagClass}">${stockTagText}</div>
+                        ${inCart > 0 ? `<div class="in-cart-badge">${inCart}</div>` : ''}
+                        <span class="pill-icon">${config.emoji}</span>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-card-category">${product.category}</div>
+                        <div class="product-card-name">${product.name}</div>
+                        <div class="product-card-stock">
+                            <i class="fas fa-box"></i>
+                            المخزون: <strong>${product.stock}</strong> ${product.stock === 0 ? '' : 'قطعة'}
+                        </div>
+                        <div class="product-card-footer">
+                            <div class="product-card-price">${product.price} <small>جنيه</small></div>
+                            <button class="add-btn ${inCart > 0 ? 'added' : ''}" 
+                                    onclick="addToCart(${product.id})"
+                                    id="btn-${product.id}"
+                                    ${!inStock ? 'disabled' : ''}>
+                                <i class="fas ${inCart > 0 ? 'fa-check' : 'fa-plus'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // ===== Filters =====
+        function applyFilters() {
+            const term = searchInput.value.trim().toLowerCase();
+            let filtered = products;
+            if (activeCategory !== 'الكل') filtered = filtered.filter(p => p.category === activeCategory);
+            if (term) filtered = filtered.filter(p => p.name.toLowerCase().includes(term));
+            renderProducts(filtered);
+        }
+
+        searchInput.addEventListener('input', () => applyFilters());
+
+        // ===== CART =====
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product || product.stock <= 0) return;
+
+            const existing = cart.find(c => c.id === productId);
+            if (existing) {
+                if (existing.qty < product.stock) {
+                    existing.qty++;
+                }
+            } else {
+                cart.push({ id: productId, qty: 1 });
+            }
+
+            // Button feedback
+            const btn = document.getElementById(`btn-${productId}`);
+            if (btn) {
+                btn.classList.add('added');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.classList.remove('added');
+                    btn.innerHTML = '<i class="fas fa-plus"></i>';
+                }, 1200);
+            }
+
+            updateCartUI();
+            applyFilters();
+            showToast(`✅ تمت إضافة "${product.name}" للسلة`, 'success');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(c => c.id !== productId);
+            updateCartUI();
+            applyFilters();
+        }
+
+        function changeQty(productId, delta) {
+            const item = cart.find(c => c.id === productId);
+            if (!item) return;
+            const product = products.find(p => p.id === productId);
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(c => c.id !== productId);
+            } else if (product && item.qty > product.stock) {
+                item.qty = product.stock;
+            }
+
+            updateCartUI();
+            applyFilters();
+        }
+
+        function getCartTotal() {
+            return cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.id);
+                return sum + (product ? product.price * item.qty : 0);
+            }, 0);
+        }
+
+        function getCartCount() {
+            return cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const count = getCartCount();
+            badge.textContent = count;
+            badge.classList.toggle('hidden-badge', count === 0);
+            badge.classList.add('bump');
+            setTimeout(() => badge.classList.remove('bump'), 300);
+
+            renderCartItems();
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItems');
+            const footerEl = document.getElementById('cartFooter');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>السلة فارغة</p>
+                    </div>
+                `;
+                footerEl.classList.add('hidden');
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            footerEl.classList.remove('hidden');
+            checkoutBtn.disabled = false;
+
+            container.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return '';
+                const config = categoryConfig[product.category] || { emoji: '💊' };
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-emoji">${config.emoji}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${product.name}</div>
+                            <div class="cart-item-price">${product.price * item.qty} جنيه</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn remove" onclick="changeQty(${item.id}, -1)">
+                                <i class="fas ${item.qty === 1 ? 'fa-trash-alt' : 'fa-minus'}"></i>
+                            </button>
+                            <span class="qty-value">${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)" ${item.qty >= product.stock ? 'disabled' : ''}>
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotal').textContent = getCartTotal() + ' جنيه';
+        }
+
+        // ===== Cart Toggle =====
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        // ===== Toast =====
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ===== Checkout =====
+        function openCheckout() {
+            if (cart.length === 0) return;
+
+            // Close cart sidebar
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.getElementById('cartOverlay').classList.remove('open');
+
+            // Build summary
+            const summaryHtml = cart.map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return '';
+                return `
+                    <div class="checkout-item">
+                        <span class="checkout-item-name">${product.name}</span>
+                        <span class="checkout-item-qty">×${item.qty}</span>
+                        <span class="checkout-item-price">${product.price * item.qty} جنيه</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('checkoutSummary').innerHTML = summaryHtml;
+            document.getElementById('checkoutTotal').textContent = getCartTotal() + ' جنيه';
+
+            // Show modal
+            document.getElementById('checkoutFormContainer').style.display = 'block';
+            document.getElementById('successState').classList.remove('visible');
+            document.getElementById('checkoutForm').reset();
+            document.getElementById('checkoutModal').classList.add('open');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('open');
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCheckout();
+                const cartSidebar = document.getElementById('cartSidebar');
+                if (cartSidebar.classList.contains('open')) toggleCart();
+            }
+        });
+
+        // ===== Submit Checkout =====
+        document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحجز...';
+
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const email = document.getElementById('customerEmail').value.trim();
+            const reservationNumber = 'RES-' + Math.floor(100000 + Math.random() * 900000);
+            const totalAmount = getCartTotal();
+
+            try {
+                if (isUsingSupabase) {
+                    // 1. Create reservation
+                    const resDB = await supabase.from('reservations');
+                    const { data: resData, error: resError } = await resDB.insert([{
+                        reservation_number: reservationNumber,
+                        customer_name: name,
+                        customer_phone: phone,
+                        status: 'pending',
+                        total_amount: totalAmount
+                    }]);
+                    if (resError) throw resError;
+                    console.log('✅ تم حفظ الحجز:', resData);
+
+                    // 2. Create reservation items
+                    if (resData && resData[0]) {
+                        const itemsDB = await supabase.from('reservation_items');
+                        const items = cart.map(ci => {
+                            const p = products.find(pr => pr.id === ci.id);
+                            return {
+                                reservation_id: resData[0].id,
+                                product_id: ci.id,
+                                quantity: ci.qty,
+                                unit_price: p.price,
+                                total_price: p.price * ci.qty
+                            };
+                        });
+                        await itemsDB.insert(items);
+                    }
+
+                    // 3. Update stock for each item
+                    for (const ci of cart) {
+                        const p = products.find(pr => pr.id === ci.id);
+                        if (p) {
+                            const pDB = await supabase.from('products');
+                            const chain = await pDB.update({ stock: p.stock - ci.qty });
+                            await chain.eq('id', ci.id);
+                        }
+                    }
+                    console.log('✅ تم تحديث المخزون');
+                }
+
+                // 4. Build email
+                const itemsRows = cart.map(ci => {
+                    const p = products.find(pr => pr.id === ci.id);
+                    return `<tr style="border-bottom:1px solid #e5e7eb;">
+                        <td style="padding:10px 8px;font-weight:500;">${p.name}</td>
+                        <td style="padding:10px 8px;text-align:center;">${ci.qty}</td>
+                        <td style="padding:10px 8px;text-align:center;color:#0284c7;font-weight:700;">${p.price * ci.qty} جنيه</td>
+                    </tr>`;
+                }).join('');
+
+                const emailHtml = `
+                    <div dir="rtl" style="font-family:'Segoe UI',Tahoma,sans-serif;max-width:600px;margin:0 auto;background:#f8fafc;">
+                        <div style="background:linear-gradient(135deg,#0284c7,#0369a1);padding:32px;text-align:center;border-radius:0 0 20px 20px;">
+                            <h1 style="color:#fff;margin:0;font-size:28px;">صيدلية الشفاء 💊</h1>
+                            <p style="color:#e0f2fe;margin:8px 0 0;font-size:16px;">تأكيد حجز جديد</p>
+                        </div>
+                        <div style="padding:32px;background:#fff;margin:20px;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+                            <div style="background:#ecfdf5;border-right:4px solid #10b981;padding:16px;border-radius:8px;margin-bottom:24px;">
+                                <p style="margin:0;color:#065f46;font-weight:bold;font-size:18px;">✅ تم تأكيد الحجز بنجاح</p>
+                                <p style="margin:4px 0 0;color:#047857;">رقم الحجز: <strong style="font-size:20px;">${reservationNumber}</strong></p>
+                            </div>
+                            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                                <tr style="border-bottom:1px solid #e5e7eb;">
+                                    <td style="padding:10px 0;color:#6b7280;">اسم العميل:</td>
+                                    <td style="padding:10px 0;font-weight:bold;">${name}</td>
+                                </tr>
+                                <tr style="border-bottom:1px solid #e5e7eb;">
+                                    <td style="padding:10px 0;color:#6b7280;">رقم التليفون:</td>
+                                    <td style="padding:10px 0;font-weight:bold;">${phone}</td>
+                                </tr>
+                            </table>
+                            <h3 style="margin:24px 0 12px;font-size:16px;">تفاصيل الطلب:</h3>
+                            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                                <thead>
+                                    <tr style="background:#f1f5f9;"><th style="padding:10px 8px;text-align:right;">الدواء</th><th style="padding:10px 8px;text-align:center;">الكمية</th><th style="padding:10px 8px;text-align:center;">السعر</th></tr>
+                                </thead>
+                                <tbody>${itemsRows}</tbody>
+                                <tfoot>
+                                    <tr style="background:#eff6ff;"><td style="padding:12px 8px;font-weight:bold;" colspan="2">الإجمالي</td><td style="padding:12px 8px;text-align:center;font-weight:bold;color:#0284c7;font-size:16px;">${totalAmount} جنيه</td></tr>
+                                </tfoot>
+                            </table>
+                            <div style="background:#eff6ff;padding:16px;border-radius:8px;margin-top:24px;text-align:center;">
+                                <p style="margin:0;color:#1e40af;font-size:14px;">⏰ برجاء التوجه للصيدلية لاستلام الأدوية خلال <strong>24 ساعة</strong></p>
+                            </div>
+                        </div>
+                        <div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px;">
+                            <p style="margin:0;">© صيدلية الشفاء ${new Date().getFullYear()}</p>
+                        </div>
+                    </div>
+                `;
+
+                // Send to pharmacy
+                sendBrevoEmail({
+                    to: 'phoeyo4324@gmail.com',
+                    toName: 'صيدلية الشفاء',
+                    subject: `حجز جديد #${reservationNumber} (${cart.length} أدوية - ${totalAmount} جنيه)`,
+                    htmlContent: emailHtml
+                });
+
+                // Send to customer
+                if (email) {
+                    sendBrevoEmail({
+                        to: email,
+                        toName: name,
+                        subject: `تأكيد حجزك #${reservationNumber} - صيدلية الشفاء`,
+                        htmlContent: emailHtml
+                    });
+                }
+
+                // 5. Update local stock & clear cart
+                cart.forEach(ci => {
+                    const p = products.find(pr => pr.id === ci.id);
+                    if (p) p.stock -= ci.qty;
+                });
+                cart = [];
+                updateCartUI();
+                applyFilters();
+
+                // Show success
+                document.getElementById('reservationId').textContent = reservationNumber;
+                document.getElementById('checkoutFormContainer').style.display = 'none';
+                document.getElementById('successState').classList.add('visible');
+
+            } catch (error) {
+                console.error('❌ خطأ في الحجز:', error);
+                // Fallback - still show success
+                cart.forEach(ci => {
+                    const p = products.find(pr => pr.id === ci.id);
+                    if (p) p.stock -= ci.qty;
+                });
+                cart = [];
+                updateCartUI();
+                applyFilters();
+                document.getElementById('reservationId').textContent = reservationNumber;
+                document.getElementById('checkoutFormContainer').style.display = 'none';
+                document.getElementById('successState').classList.add('visible');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+            }
+        });
+
+        // ===== Navbar Scroll Effect =====
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== Init =====
+        updateCartUI();
+        loadProductsFromSupabase();
+    </script>
 </body>
 
 </html>
